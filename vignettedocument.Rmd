@@ -1,6 +1,6 @@
 ---
 title: "Clustering Methods"
-author: "Vignette Author"
+author: "Manuri Alwis, Jade Thai, Jennifer Rink, Kayla Katakis, and Kylie Maeda"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
