@@ -8,3 +8,17 @@ Your repository should contain:
 2.  A primary vignette document that explains methods and walks through implementation line-by-line (similar to an in-class or lab activity)
 3.  At least one example dataset
 4.  A script containing commented codes appearing in the vignette
+
+
+
+A one-sentence description at the very top before any (sub)headers:
+
+Vignette on implementing different clustering methods using chemicals in wine; created as a class project for PSTAT197A in Fall 2023.
+
+Contributors: Manuri Alwis, Jade Thai, Jennifer Rink, Kayla Katakis, and Kylie Maeda
+
+Vignette abstract: a brief description in a few sentences of your vignette topic, example data, and outcomes.
+
+Repository contents: an explanation of the directory structure of the repository
+
+Reference list: 2 or more references to learn more about your topic.
