@@ -9,11 +9,12 @@ raw %>%
   group_by(quality) %>% 
   summarize(count= n())
 
-
+#filter by low quality
 quality_low <- raw %>%
   filter(quality <= 5) %>%
   select(-quality)
 
+#filter by high quality
 quality_high <- raw %>%
   filter(quality >= 6) %>%
   select(-quality)
@@ -22,3 +23,20 @@ quality_high <- raw %>%
 write.csv(quality_low, "quality_low.csv", row.names = FALSE)
 write.csv(quality_high, "quality_high.csv", row.names = FALSE)
 
+#filter for red wine
+red <- raw %>% filter(type == 'red')
+
+#filter for white wine
+white <- raw %>% filter(type == 'white')
+
+# write red and white to csv 
+write.csv(red, 'red.csv', row.names = FALSE)
+write.csv(white, 'white.csv', row.names = FALSE)
+
+#wine origin data
+winedata <- read.table(unz('/Users/kaylakatakis/downloads/wine.zip',
+                           'wine.data'), sep = ',')
+colnames(winedata) <- c('class','Alcohol', 'Malic acid', 'Ash','Alcalinity of ash',
+                        'Magnesium','Total phenols','Flavanoids',
+                        'Nonflavanoid phenols', 'Proanthocyanins','Color intensity',
+                        'Hue','OD280/OD315 of diluted wines','Proline')
