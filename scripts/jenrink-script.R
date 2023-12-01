@@ -43,8 +43,19 @@ wine_norm<-wines_removed %>%
 
 summary(wine_norm)
 
+
+# Simple Hierarchy
 clusters <- hclust(dist(wine_norm))
 plot(clusters)
-
 clusterCut <- cutree(clusters, 7)
 table(clusterCut, wines$quality)
+
+# Euclidean Distance (better performance than simple)
+clusters_euc <- hclust(dist(wine_norm), method = 'average')
+plot(clusters_euc)
+clusterCut_euc <- cutree(clusters_euc, 7)
+table(clusterCut_euc, wines$quality)
+
+# Plot the clusters
+ggplot(wines, aes(`fixed acidity`, alcohol, color = wines$quality)) + 
+  geom_point(alpha = 0.4, size = 1) + geom_point(col = clusterCut_euc)
