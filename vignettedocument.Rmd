@@ -1,6 +1,6 @@
 ---
 title: "Clustering Methods"
-author: "Manuri Alwis, Jade Thai, Jennifer Rink, Kayla Katakis, and Kylie Maeda"
+author: "Manuri Alwis, Kayla Katakis, Kylie Maeda, Jennifer Rink, Jade Thai"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
@@ -16,9 +16,19 @@ knitr::opts_chunk$set(
 )
 ```
 
+Your repository should contain:
+
+1.  A brief .README summarizing repo content and listing the best references on your topic for a user to consult after reviewing your vignette if they wish to learn more
+
+2.  A primary vignette document that explains methods and walks through implementation line-by-line (similar to an in-class or lab activity)
+
+3.  At least one example dataset
+
+4.  A script containing commented codes appearing in the vignette
+
 # **K-means clustering**
 
-K-means clustering is an unsupervised machine learning algorithm. Among unsupervised machine learning algorithms, it is one of the simplest and most popular. These algorithms usually make inferences from data by only looking at the independent variables and not at the dependent variable, also known as the outcome. The objective of k-means is to group similar data points together (into clusters) and find underlying patterns. In order to do so, this algorithm looks for a fixed number of clusters in the data. The \"k\" in k-means refers to the number of clusters. You will define the target number k, which represents the number of centroids you want in the data. The centroid is the center of the cluster. Every data point is assigned to a cluster through reducing the in-cluster sum of squares. Basically, the k-means algorithm finds k centroids and assigns each data point the nearest cluster, while keeping the centroids as small as possible. The \"means\" in k-means refers to averaging of the data.
+K-means clustering is an unsupervised machine learning algorithm. Among unsupervised machine learning algorithms, it is one of the simplest and most popular. These algorithms usually make inferences from data by only looking at the independent variables and not at the dependent variable, also known as the outcome. The objective of k-means is to group similar data points together (into clusters) and find underlying patterns. In order to do so, this algorithm looks for a fixed number of clusters in the data. The "k" in k-means refers to the number of clusters. You will define the target number k, which represents the number of centroids you want in the data. The centroid is the center of the cluster. Every data point is assigned to a cluster through reducing the in-cluster sum of squares. Basically, the k-means algorithm finds k centroids and assigns each data point the nearest cluster, while keeping the centroids as small as possible. The "means" in k-means refers to averaging of the data.
 
 ```{r}
 # load packages
@@ -90,4 +100,3 @@ ggplot(housing, aes(MedHouseVal, MedInc, color = factor(cluster))) +
 ggplot(housing, aes(Longitude, Latitude, color = factor(cluster))) +
   geom_point()
 ```
-
