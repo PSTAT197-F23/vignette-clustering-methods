@@ -16,9 +16,17 @@ knitr::opts_chunk$set(
 )
 ```
 
+# Objectives
+
+-   Explore two different clustering methods: K-means and \_\_\_\_\_\_
+
+-   Use these clustering methods to analyze California housing data
+
 # **K-means clustering**
 
-K-means clustering is an unsupervised machine learning algorithm. Among unsupervised machine learning algorithms, it is one of the simplest and most popular. These algorithms usually make inferences from data by only looking at the independent variables and not at the dependent variable, also known as the outcome. The objective of k-means is to group similar data points together (into clusters) and find underlying patterns. In order to do so, this algorithm looks for a fixed number of clusters in the data. The \"k\" in k-means refers to the number of clusters. You will define the target number k, which represents the number of centroids you want in the data. The centroid is the center of the cluster. Every data point is assigned to a cluster through reducing the in-cluster sum of squares. Basically, the k-means algorithm finds k centroids and assigns each data point the nearest cluster, while keeping the centroids as small as possible. The \"means\" in k-means refers to averaging of the data.
+K-means clustering is one of the simplest and most popular. unsupervised machine learning algorithms. The objective of k-means is to group similar data points together (into clusters) and find underlying patterns. In order to do so, this algorithm looks for a fixed number of clusters in the data. The "k" in k-means refers to the number of clusters. You will define the target number k, which represents the number of centroids you want in the data. The centroid is the center of the cluster. Every data point is assigned to a cluster through reducing the in-cluster sum of squares. Basically, the k-means algorithm finds k centroids and assigns each data point the nearest cluster, while keeping the centroids as small as possible. The "means" in k-means refers to averaging of the data.
+
+Before diving into clustering, the data must be loaded in along with any necessary packages.
 
 ```{r}
 # load packages
@@ -49,7 +57,7 @@ for (k in 1:15) {
 
 ```
 
-```{r}
+```{r fig.height= 7, fig.width = 7}
 # plot inertia against k
 ggplot() +
   geom_line(aes(x = 1:15, y = inertias)) +
@@ -77,7 +85,7 @@ print(kmeans$cluster)
 print(kmeans$centers)
 ```
 
-```{r}
+```{r fig.height= 7, fig.width = 7}
 # cluster plots
 ggplot(housing, aes(MedInc, log(Population), color = factor(cluster))) +
   geom_point()
@@ -85,9 +93,8 @@ ggplot(housing, aes(MedHouseVal, MedInc, color = factor(cluster))) +
   geom_point()
 ```
 
-```{r}
+```{r fig.height= 7, fig.width = 7}
 # clusters on map of california
 ggplot(housing, aes(Longitude, Latitude, color = factor(cluster))) +
   geom_point()
 ```
-
