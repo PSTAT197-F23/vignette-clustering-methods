@@ -22,3 +22,4 @@ Vignette abstract: a brief description in a few sentences of your vignette topic
 Repository contents: an explanation of the directory structure of the repository
 
 Reference list: 2 or more references to learn more about your topic.
+https://towardsdatascience.com/understanding-k-means-clustering-in-machine-learning-6a6e67336aa1

@@ -16,50 +16,6 @@ knitr::opts_chunk$set(
 )
 ```
 
-Vignettes are long form documentation commonly included in packages. Because they are part of the distribution of the package, they need to be as compact as possible. The `html_vignette` output type provides a custom style sheet (and tweaks some options) to ensure that the resulting html is as small as possible. The `html_vignette` format:
+# **K-means clustering**
 
-- Never uses retina figures
-- Has a smaller default figure size
-- Uses a custom CSS stylesheet instead of the default Twitter Bootstrap style
-
-## Vignette Info
-
-Note the various macros within the `vignette` section of the metadata block above. These are required in order to instruct R how to build the vignette. Note that you should change the `title` field and the `\VignetteIndexEntry` to match the title of your vignette.
-
-## Styles
-
-The `html_vignette` template includes a basic CSS theme. To override this theme you can specify your own CSS in the document metadata as follows:
-
-    output: 
-      rmarkdown::html_vignette:
-        css: mystyles.css
-
-## Figures
-
-The figure sizes have been customised so that you can easily put two images side-by-side. 
-
-```{r, fig.show='hold'}
-plot(1:10)
-plot(10:1)
-```
-
-You can enable figure captions by `fig_caption: yes` in YAML:
-
-    output:
-      rmarkdown::html_vignette:
-        fig_caption: yes
-
-Then you can use the chunk option `fig.cap = "Your figure caption."` in **knitr**.
-
-## More Examples
-
-You can write math expressions, e.g. $Y = X\beta + \epsilon$, footnotes^[A footnote here.], and tables, e.g. using `knitr::kable()`.
-
-```{r, echo=FALSE, results='asis'}
-knitr::kable(head(mtcars, 10))
-```
-
-Also a quote using `>`:
-
-> "He who gives up [code] safety for [code] speed deserves neither."
-([via](https://twitter.com/hadleywickham/status/504368538874703872))
+K-means clustering is an unsupervised machine learning algorithm. Among unsupervised machine learning algorithms, it is one of the simplest and most popular. These algorithms usually make inferences from data by only looking at the independent variables and not at the dependent variable, also known as the outcome. The objective of k-means is to group similar data points together (into clusters) and find underlying patterns. In order to do so, this algorithm looks for a fixed number of clusters in the data. The \"k\" in k-means refers to the number of clusters. You will define the target number k, which represents the number of centroids you want in the data. The centroid is the center of the cluster. Every data point is assigned to a cluster through reducing the in-cluster sum of squares. Basically, the k-means algorithm finds k centroids and assigns each data point the nearest cluster, while keeping the centroids as small as possible. The \"means\" in k-means refers to averaging of the data.
