@@ -13,7 +13,7 @@ Your repository should contain:
 
 A one-sentence description at the very top before any (sub)headers:
 
-Vignette on implementing different clustering methods using chemicals in wine; created as a class project for PSTAT197A in Fall 2023.
+Vignette on implementing different clustering methods using California housing data; created as a class project for PSTAT197A in Fall 2023.
 
 Contributors: Manuri Alwis, Jade Thai, Jennifer Rink, Kayla Katakis, and Kylie Maeda
 
