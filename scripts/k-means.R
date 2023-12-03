@@ -2,17 +2,33 @@
 library(tidyverse)
 
 # read in data
-root_dir <- rprojroot::find_rstudio_root_file()
-data_dir <- file.path(root_dir, "data")
-setwd(data_dir)
-#data <- read.csv("winequalityN.csv", header = TRUE)
-#data <- read.csv('data/winequalityN.csv', header = TRUE)
+housing <- read.csv('data/housing.csv', header = TRUE)
+head(housing)
 
-data <- read_csv('white.csv')
-# separate predictors from response (we do not need the response variable here)
-x <- select(data, -quality)
+# normalize data
+housing_norm <- scale(housing)
+head(housing_norm)
 
-# true cluster plot
-ggplot(data, aes(alcohol, pH, color = factor(quality))) +
+# perform k-means clustering with k = 3
+kmeans <- kmeans(housing_norm, 3)
+
+## HERE: make SSwithin plots to tune k
+
+# append cluster assignments to the data
+housing$cluster <- kmeans$cluster
+
+# display the cluster assignments
+print(kmeans$cluster)
+
+# display the centroids of each cluster
+print(kmeans$centers)
+
+# cluster plots
+ggplot(housing, aes(MedInc, log(Population), color = factor(cluster))) +
   geom_point()
-#clusters iffy
+ggplot(housing, aes(MedHouseVal, MedInc, color = factor(cluster))) +
+  geom_point()
+
+# clusters on map of california
+ggplot(housing, aes(Longitude, Latitude, color = factor(cluster))) +
+  geom_point()
