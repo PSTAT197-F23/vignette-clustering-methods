@@ -10,7 +10,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<meta name="author" content="Manuri Alwis, Jade Thai, Jennifer Rink, Kayla Katakis, and Kylie Maeda" />
+<meta name="author" content="Manuri Alwis, Kayla Katakis, Kylie Maeda, Jennifer Rink, Jade Thai" />
 
 <meta name="date" content="2023-12-03" />
 
@@ -339,8 +339,8 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 
 <h1 class="title toc-ignore">Clustering Methods</h1>
-<h4 class="author">Manuri Alwis, Jade Thai, Jennifer Rink, Kayla
-Katakis, and Kylie Maeda</h4>
+<h4 class="author">Manuri Alwis, Kayla Katakis, Kylie Maeda, Jennifer
+Rink, Jade Thai</h4>
 <h4 class="date">2023-12-03</h4>
 
 
@@ -356,7 +356,7 @@ data</p></li>
 </div>
 <div id="k-means-clustering" class="section level1">
 <h1><strong>K-means clustering</strong></h1>
-<p>K-means clustering is one of the simplest and most popular.
+<p>K-means clustering is one of the simplest and most popular
 unsupervised machine learning algorithms. The objective of k-means is to
 group similar data points together (into clusters) and find underlying
 patterns. In order to do so, this algorithm looks for a fixed number of
@@ -368,6 +368,8 @@ the in-cluster sum of squares. Basically, the k-means algorithm finds k
 centroids and assigns each data point the nearest cluster, while keeping
 the centroids as small as possible. The “means” in k-means refers to
 averaging of the data.</p>
+<p>Before diving into clustering, the data must be loaded in along with
+any necessary packages.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co"># load packages</span></span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="co">#&gt; ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──</span></span>
