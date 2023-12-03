@@ -11,13 +11,18 @@ Your repository should contain:
 
 
 
+
+
+
+
 A one-sentence description at the very top before any (sub)headers:
 
 Vignette on implementing different clustering methods using California housing data; created as a class project for PSTAT197A in Fall 2023.
 
 Contributors: Manuri Alwis, Jade Thai, Jennifer Rink, Kayla Katakis, and Kylie Maeda
 
-Vignette abstract: a brief description in a few sentences of your vignette topic, example data, and outcomes.
+Vignette abstract: a brief description in a few sentences of your vignette topic, example data, and outcomes. 
+Clustering is an unsupervised machine learning method of identifying and grouping similar observations in a dataset without looking at the outcome. It is typically used to classify data into groups that allows for ease in understanding and manipulating. The data used in this vignette is California Housing Data from 1990 for each district in the state. The variables include the median income, median age of houses, average number of rooms, average number of bedrooms, population, average occupants, latitude, longitude, and median house value. 
 
 Repository contents: an explanation of the directory structure of the repository
 
