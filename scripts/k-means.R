@@ -31,20 +31,42 @@ kmeans <- kmeans(housing_norm, 5)
 # append cluster assignments to the data
 housing$cluster <- kmeans$cluster
 
-# display the cluster assignments
-print(kmeans$cluster)
-
 # display the centroids of each cluster
 print(kmeans$centers)
 
 # cluster plots
-ggplot(housing, aes(MedInc, log(Population), color = factor(cluster))) +
+fig1 <- ggplot(housing, aes(MedInc, log(Population), color = factor(cluster))) +
   geom_point()
-ggplot(housing, aes(MedHouseVal, MedInc, color = factor(cluster))) +
+
+fig2 <- ggplot(housing, aes(MedHouseVal, MedInc, color = factor(cluster))) +
+  geom_point()
+
+ggplot(housing, aes(HouseAge, MedInc, color = factor(cluster))) +
   geom_point()
 
 # clusters on map of california
-ggplot(housing, aes(Longitude, Latitude, color = factor(cluster))) +
+fig3 <- ggplot(housing, aes(Longitude, Latitude, color = factor(cluster))) +
   geom_point()
 
 # perform PCA on the data
+pca <- prcomp(housing_norm, rank. = 2)
+
+# pca summary
+summary(pca)
+
+# principal components
+pcs <- pca$x
+
+# loadings/coefficients
+loadings <- pca$rotation
+
+# clusters on PC plot
+housing$PC1 <- pcs[,1]
+housing$PC2 <- pcs[,2]
+fig4 <- ggplot(housing, aes(PC1, PC2, color = factor(cluster))) +
+  scale_x_continuous(limits = c(-20, 5)) +
+  scale_y_continuous(limits = c(-10, 5)) +
+  geom_point()
+
+library(gridExtra)
+grid.arrange(fig1, fig2, fig3, fig4, ncol = 2)
