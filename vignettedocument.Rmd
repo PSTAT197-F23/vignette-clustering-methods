@@ -92,15 +92,15 @@ kmeans$centers
 
 Based on the centroids we can loosely infer:
 
-- Cluster 1 seems to group data points with highest `Latitude`, lowest `MedHouseVal`, and relatively low `House Age`. In other words, cluster 1 primarily consists of houses in northern California that tend to be lower in value and age.
+-   Cluster 1 seems to group data points with highest `Latitude`, lowest `MedHouseVal`, and relatively low `House Age`. In other words, cluster 1 primarily consists of houses in northern California that tend to be lower in value and age.
 
-- Cluster 2 appears to group points with high `Latitude`, high `HouseAge`, and low `Population` - that is, the least populated, oldest, northern California homes.
+-   Cluster 2 appears to group points with high `Latitude`, high `HouseAge`, and low `Population` - that is, the least populated, oldest, northern California homes.
 
-- Cluster 3 consists of homes that are the furthest south and relatively low in value. This cluster also has the lowest household median income.
+-   Cluster 3 consists of homes that are the furthest south and relatively low in value. This cluster also has the lowest household median income.
 
-- Cluster 4 contains homes that are typically newest in age and in the most heavily populated areas.
+-   Cluster 4 contains homes that are typically newest in age and in the most heavily populated areas.
 
-- Cluster 5 groups households with the highest median income, house value, and number of rooms.
+-   Cluster 5 groups households with the highest median income, house value, and number of rooms.
 
 Now, let's plot the data using different variables and observe how they are grouped in their clusters. We want to pick variables that show the greatest separation between clusters for visualization purposes.
 
@@ -125,10 +125,10 @@ Despite some overlap between clusters, this plot shows us that our clusters gene
 
 # Hierarchical Clustering
 
-Hierarchical Clustering organizes data points into a tree-like structure called a dendrogram. The process starts with each data point as an individual cluster and then iteratively merges or splits clusters based on their similarities.
-We can use this type of clustering to identify patterns and groupings based not only on geographical and income factors but also on population density for California housing data.
+Hierarchical Clustering organizes data points into a tree-like structure called a dendrogram. The process starts with each data point as an individual cluster and then iteratively merges or splits clusters based on their similarities. We can use this type of clustering to identify patterns and groupings based not only on geographical and income factors but also on population density for California housing data.
 
 ## Set Up
+
 ```{r, message=FALSE}
 library(MASS)
 library(class)
@@ -149,7 +149,7 @@ housing_norm<-as.data.frame(scale(subset_housing))
 
 ## Distance Method
 
-There are many ways to approach hierarchical clustering, starting with the way we calculate the distance between data points. The method used to calculate the distance metric depends wholly on the type of data being analyzed. For our example, we will be using the `euclidean` distance which works well with continuous data. 
+There are many ways to approach hierarchical clustering, starting with the way we calculate the distance between data points. The method used to calculate the distance metric depends wholly on the type of data being analyzed. For our example, we will be using the `euclidean` distance which works well with continuous data.
 
 ```{r}
 d <- dist(housing_norm, method = "euclidean") # distance matrix
@@ -157,7 +157,7 @@ d <- dist(housing_norm, method = "euclidean") # distance matrix
 
 ## Similarity Method
 
-Next, we must decide which similarity method to use to calculate similarities between data points. 
+Next, we must decide which similarity method to use to calculate similarities between data points.
 
 ( Insert Table of similarity method here? )
 
