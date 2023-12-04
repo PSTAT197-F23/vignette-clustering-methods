@@ -28,23 +28,22 @@ K-means clustering is one of the simplest and most popular unsupervised machine 
 
 Before diving into clustering, the data must be loaded in along with any necessary packages.
 
-```{r}
+```{r message=FALSE}
 # load packages
 library(tidyverse)
+```
 
+```{r}
 # read in data
 housing <- read.csv('data/housing.csv', header = TRUE)
 head(housing)
-```
 
-```{r}
 # normalize data
 housing_norm <- scale(housing)
 head(housing_norm)
-
 ```
 
-```{r}
+```{r fig.height= 7, fig.width = 7}
 # initialize list of inertias (TSS within)
 inertias <- c()
 
@@ -55,46 +54,59 @@ for (k in 1:15) {
   inertias <- c(inertias, model$tot.withinss)
 }
 
-```
-
-```{r fig.height= 7, fig.width = 7}
 # plot inertia against k
 ggplot() +
   geom_line(aes(x = 1:15, y = inertias)) +
   geom_point(aes(x = 1:15, y = inertias)) +
   labs(title = "Elbow Method Plot", x = "Number of Clusters (k)", y = "Inertia")
-
 ```
 
 ```{r}
 # perform k-means clustering with k = 5
 kmeans <- kmeans(housing_norm, 5)
-
 ```
 
 ```{r}
 # append cluster assignments to the data
 housing$cluster <- kmeans$cluster
-
-# display the cluster assignments
-print(kmeans$cluster)
 ```
+
+Now, we should take a look at the centroids of each cluster. A centroid is the mean of data points assigned to a cluster. Analyzing the centroids can help us understand the composition of each cluster and how they differ from each other.
 
 ```{r}
 # display the centroids of each cluster
-print(kmeans$centers)
+kmeans$centers
 ```
 
+Based on the centroids we can loosely infer:
+
+- Cluster 1 seems to group data points with highest `Latitude`, lowest `MedHouseVal`, and relatively low `House Age`. In other words, cluster 1 primarily consists of houses in northern California that tend to be lower in value and age.
+
+- Cluster 2 appears to group points with high `Latitude`, high `HouseAge`, and low `Population` - that is, the least populated, oldest, northern California homes.
+
+- Cluster 3 consists of homes that are the furthest south and relatively low in value. This cluster also has the lowest household median income.
+
+- Cluster 4 contains homes that are typically newest in age and in the most heavily populated areas.
+
+- Cluster 5 groups households with the highest median income, house value, and number of rooms.
+
+Now, let's plot the data using different variables and observe how they are grouped in their clusters. We want to pick variables that show the greatest separation between clusters for visualization purposes.
+
 ```{r fig.height= 7, fig.width = 7}
-# cluster plots
+# plot median income against population
 ggplot(housing, aes(MedInc, log(Population), color = factor(cluster))) +
   geom_point()
-ggplot(housing, aes(MedHouseVal, MedInc, color = factor(cluster))) +
-  geom_point()
 ```
+
+The plot above shows the median income plotted against population. We see significant separation of clusters 4 and 5, as cluster 4 has large population values and cluster 5 has large household median income.
+
+Since our data contains latitude and longitude variables, we can actually plot a map of California to visualize where our clusters lie.
 
 ```{r fig.height= 7, fig.width = 7}
 # clusters on map of california
 ggplot(housing, aes(Longitude, Latitude, color = factor(cluster))) +
-  geom_point()
+  geom_point() +
+  labs(title = 'Clusters on map of California', color = 'Cluster')
 ```
+
+The plot shows us that our clusters largely resemble geographic and economic regions in California. For example, cluster 5 appears to contain more wealthy, populated regions like the San Fransisco, Los Angeles, and San Diego.

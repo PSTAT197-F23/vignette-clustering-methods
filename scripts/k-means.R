@@ -35,17 +35,17 @@ housing$cluster <- kmeans$cluster
 print(kmeans$centers)
 
 # cluster plots
-fig1 <- ggplot(housing, aes(MedInc, log(Population), color = factor(cluster))) +
+ggplot(housing, aes(MedInc, log(Population), color = factor(cluster))) +
   geom_point()
 
-fig2 <- ggplot(housing, aes(MedHouseVal, MedInc, color = factor(cluster))) +
+ggplot(housing, aes(MedHouseVal, MedInc, color = factor(cluster))) +
   geom_point()
 
-ggplot(housing, aes(HouseAge, MedInc, color = factor(cluster))) +
+ggplot(housing, aes(HouseAge, MedHouseVal, color = factor(cluster))) +
   geom_point()
 
 # clusters on map of california
-fig3 <- ggplot(housing, aes(Longitude, Latitude, color = factor(cluster))) +
+ggplot(housing, aes(Longitude, Latitude, color = factor(cluster))) +
   geom_point()
 
 # perform PCA on the data
@@ -63,10 +63,7 @@ loadings <- pca$rotation
 # clusters on PC plot
 housing$PC1 <- pcs[,1]
 housing$PC2 <- pcs[,2]
-fig4 <- ggplot(housing, aes(PC1, PC2, color = factor(cluster))) +
+ggplot(housing, aes(PC1, PC2, color = factor(cluster))) +
   scale_x_continuous(limits = c(-20, 5)) +
   scale_y_continuous(limits = c(-10, 5)) +
   geom_point()
-
-library(gridExtra)
-grid.arrange(fig1, fig2, fig3, fig4, ncol = 2)
