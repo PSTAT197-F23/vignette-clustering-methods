@@ -44,7 +44,7 @@ d <- dist(housing_norm,
 fit <- hclust(d, method="ward.D2")
 
 plot(fit, cex=0.000001) # display dendogram
-rect.hclust(fit, k=8)
+rect.hclust(fit, k=5)
 
 groups <- cutree(fit, k=5)
 
@@ -59,6 +59,12 @@ clus.boot <- clusterboot(housing_norm,
                          method="ward.D2", # use what we used in "hclust"
                          k=clusters, 
                          count=FALSE) # Show progress on screen?
+
+# Save an object to a file
+saveRDS(clus.boot, file = "HCLUST_bootstrap.rds")
+# Restore the object
+#readRDS(file = "HCLUST_bootstrap.rds")
+
 # clus.boot
 
 # Rule of thumb: . AvgJaccard <0.6 is unstable . AvgJaccard >0.85 is highly stable
@@ -69,10 +75,10 @@ Clusters <- c(1:clusters)
 Eval <- cbind(Clusters, AvgJaccard, Instability)
 Eval
 
-#Clusters AvgJaccard Instability
-#[1,]        1  0.8501335       0.000
-#[2,]        2  0.3051210       0.005
-#[3,]        3  0.7852603       0.000
-#[4,]        4  0.2251899       0.005
-#[5,]        5  0.9000000       0.001
+#     Clusters AvgJaccard Instability
+#[1,]        1  0.5160727       0.013
+#[2,]        2  0.5532106       0.024
+#[3,]        3  0.4430299       0.032
+#[4,]        4  0.5287624       0.029
+#[5,]        5  0.7387931       0.002
 
