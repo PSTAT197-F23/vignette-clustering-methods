@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 
 # Objectives
 
--   Explore two different clustering methods: K-means and \_\_\_\_\_\_
+-   Explore two different clustering methods: K-means and Hierarchical Clustering
 
 -   Use these clustering methods to analyze California housing data
 
@@ -28,7 +28,7 @@ K-means clustering is one of the simplest and most popular unsupervised machine 
 
 Before diving into clustering, the data must be loaded in along with any necessary packages.
 
-```{r}
+```{r, message=FALSE}
 # load packages
 library(tidyverse)
 
@@ -77,7 +77,7 @@ kmeans <- kmeans(housing_norm, 5)
 housing$cluster <- kmeans$cluster
 
 # display the cluster assignments
-print(kmeans$cluster)
+# print(kmeans$cluster)
 ```
 
 ```{r}
@@ -97,4 +97,55 @@ ggplot(housing, aes(MedHouseVal, MedInc, color = factor(cluster))) +
 # clusters on map of california
 ggplot(housing, aes(Longitude, Latitude, color = factor(cluster))) +
   geom_point()
+```
+
+
+
+## Hierarchical Clustering
+
+Hierarchical Clustering organizes data points into a tree-like structure called a dendrogram. The process starts with each data point as an individual cluster and then iteratively merges or splits clusters based on their similarities.
+We can use this type of clustering to identify patterns and groupings based not only on geographical and income factors but also on population density for California housing data.
+
+### Set Up
+```{r, message=FALSE}
+library(MASS)
+library(class)
+library(factoextra)
+library(cluster)
+# Set Directory
+root_dir <- rprojroot::find_rstudio_root_file()
+data_dir <- file.path(root_dir, "data")
+setwd(data_dir)
+# Read in data
+housing <- read_csv('housing.csv')
+# Pick just MedInc, Population, Latitude, and Longitude variables
+myvars <- c("MedInc", "Population", "Latitude", "Longitude")
+subset_housing <- housing[myvars]
+# Normalize Data
+housing_norm<-as.data.frame(scale(subset_housing))
+```
+
+### Distance Method
+
+There are many ways to approach hierarchical clustering, starting with the way we calculate the distance between data points. The method used to calculate the distance metric depends wholly on the type of data being analyzed. For our example, we will be using the `euclidean` distance which works well with continuous data. 
+
+```{r}
+d <- dist(housing_norm, method = "euclidean") # distance matrix
+```
+
+### Similarity Method
+
+Next, we must decide which similarity method to use to calculate similarities between data points. 
+
+( Insert Table of similarity method here? )
+
+There are general guidelines for each method, but it is a good idea to try a few different types in order to determine which one makes your clusters more interpretable.
+
+We will be using the `ward.D2` method which uses the squared Euclidean distance between cluster centroids to evaluate the increase in variance when merging clusters. In other words, this method making clusters easier to differentiate by minimizing the sum of squared errors.
+
+```{r}
+fit <- hclust(d, method="ward.D2")
+
+plot(fit, labels=FALSE) # display dendogram
+rect.hclust(fit, k=5)
 ```
