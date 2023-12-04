@@ -39,7 +39,7 @@ housing <- read.csv('data/housing.csv', header = TRUE)
 head(housing)
 ```
 
-[short paragraph on normalization here]
+When clustering, normalizing the data is recommended. Distance-based algorithms, such as k-means and hierarchical, rely on distance metrics. Normalizing the data helps prevent variables with large scales form influencing the distance metrics more than others.
 
 ```{r}
 # normalize data
@@ -49,7 +49,7 @@ head(housing_norm)
 
 ## Elbow Method
 
-[paragraph explaining how we use elbow method to pick k]
+The elbow method is a technique used to determine the optimal number of clusters (k) in a dataset for k-means clustering. This method plots the total within-cluster sum of squares against different values of k. It looks for the "elbow" point in the plot. This point is where adding more clusters doesn't significantly reduce the within-cluster sum of squares. The "elbow" point represents a trade-off between better fit to the data and fewer clusters.
 
 ```{r fig.height= 7, fig.width = 7}
 # initialize list of inertias (TSS within)
@@ -68,6 +68,10 @@ ggplot() +
   geom_point(aes(x = 1:15, y = inertias)) +
   labs(title = "Elbow Method Plot", x = "Number of Clusters (k)", y = "Inertia")
 ```
+
+Look at the plot. Where is the elbow point?
+
+If you said 6, that's correct! This is the point where the rate of decrease sharply changes. We should use this as our value of k.
 
 ## Modeling
 
