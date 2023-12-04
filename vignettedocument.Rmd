@@ -18,30 +18,38 @@ knitr::opts_chunk$set(
 
 # Objectives
 
--   Explore two different clustering methods: K-means and \_\_\_\_\_\_
+-   Explore two different clustering methods: K-means and Hierarchical Clustering
 
 -   Use these clustering methods to analyze California housing data
 
-# **K-means clustering**
+# K-means clustering
 
 K-means clustering is one of the simplest and most popular unsupervised machine learning algorithms. The objective of k-means is to group similar data points together (into clusters) and find underlying patterns. In order to do so, this algorithm looks for a fixed number of clusters in the data. The "k" in k-means refers to the number of clusters. You will define the target number k, which represents the number of centroids you want in the data. The centroid is the center of the cluster. Every data point is assigned to a cluster through reducing the in-cluster sum of squares. Basically, the k-means algorithm finds k centroids and assigns each data point the nearest cluster, while keeping the centroids as small as possible. The "means" in k-means refers to averaging of the data.
 
+## Set Up
+
 Before diving into clustering, the data must be loaded in along with any necessary packages.
 
-```{r message=FALSE}
+```{r, message=FALSE}
 # load packages
 library(tidyverse)
-```
 
-```{r}
 # read in data
 housing <- read.csv('data/housing.csv', header = TRUE)
 head(housing)
+```
 
+[short paragraph on normalization here]
+
+```{r}
 # normalize data
 housing_norm <- scale(housing)
 head(housing_norm)
 ```
+
+## Elbow Method
+
+[paragraph explaining how we use elbow method to pick k]
 
 ```{r fig.height= 7, fig.width = 7}
 # initialize list of inertias (TSS within)
@@ -61,15 +69,19 @@ ggplot() +
   labs(title = "Elbow Method Plot", x = "Number of Clusters (k)", y = "Inertia")
 ```
 
+## Modeling
+
 ```{r}
 # perform k-means clustering with k = 5
 kmeans <- kmeans(housing_norm, 5)
 ```
 
 ```{r}
-# append cluster assignments to the data
+# append cluster assignments to the data (to use for plotting)
 housing$cluster <- kmeans$cluster
 ```
+
+## Interpretation and Visualization
 
 Now, we should take a look at the centroids of each cluster. A centroid is the mean of data points assigned to a cluster. Analyzing the centroids can help us understand the composition of each cluster and how they differ from each other.
 
@@ -105,8 +117,57 @@ Since our data contains latitude and longitude variables, we can actually plot a
 ```{r fig.height= 7, fig.width = 7}
 # clusters on map of california
 ggplot(housing, aes(Longitude, Latitude, color = factor(cluster))) +
-  geom_point() +
+  geom_point(alpha = 0.5) +
   labs(title = 'Clusters on map of California', color = 'Cluster')
 ```
 
-The plot shows us that our clusters largely resemble geographic and economic regions in California. For example, cluster 5 appears to contain more wealthy, populated regions like the San Fransisco, Los Angeles, and San Diego.
+Despite some overlap between clusters, this plot shows us that our clusters generally resemble the different geographic and economic regions in California. For example, cluster 5 appears to contain the most wealthy, coastal counties like San Fransisco, Los Angeles, and San Diego, while cluster 2 resembles the greater Bay Area and surrounding areas. Cluster 4 seems to be the more heavily populated areas of Los Angeles and San Diego counties, and clusters 1 and 3 appear to be general separations of northern and southern California.
+
+# Hierarchical Clustering
+
+Hierarchical Clustering organizes data points into a tree-like structure called a dendrogram. The process starts with each data point as an individual cluster and then iteratively merges or splits clusters based on their similarities.
+We can use this type of clustering to identify patterns and groupings based not only on geographical and income factors but also on population density for California housing data.
+
+## Set Up
+```{r, message=FALSE}
+library(MASS)
+library(class)
+library(factoextra)
+library(cluster)
+# Set Directory
+root_dir <- rprojroot::find_rstudio_root_file()
+data_dir <- file.path(root_dir, "data")
+setwd(data_dir)
+# Read in data
+housing <- read_csv('housing.csv')
+# Pick just MedInc, Population, Latitude, and Longitude variables
+myvars <- c("MedInc", "Population", "Latitude", "Longitude")
+subset_housing <- housing[myvars]
+# Normalize Data
+housing_norm<-as.data.frame(scale(subset_housing))
+```
+
+## Distance Method
+
+There are many ways to approach hierarchical clustering, starting with the way we calculate the distance between data points. The method used to calculate the distance metric depends wholly on the type of data being analyzed. For our example, we will be using the `euclidean` distance which works well with continuous data. 
+
+```{r}
+d <- dist(housing_norm, method = "euclidean") # distance matrix
+```
+
+## Similarity Method
+
+Next, we must decide which similarity method to use to calculate similarities between data points. 
+
+( Insert Table of similarity method here? )
+
+There are general guidelines for each method, but it is a good idea to try a few different types in order to determine which one makes your clusters more interpretable.
+
+We will be using the `ward.D2` method which uses the squared Euclidean distance between cluster centroids to evaluate the increase in variance when merging clusters. In other words, this method making clusters easier to differentiate by minimizing the sum of squared errors.
+
+```{r}
+fit <- hclust(d, method="ward.D2")
+
+plot(fit, labels=FALSE) # display dendogram
+rect.hclust(fit, k=5)
+```
