@@ -43,13 +43,13 @@ d <- dist(housing_norm,
           method = "euclidean") # distance matrix
 fit <- hclust(d, method="ward.D2")
 
-plot(fit, cex=0.000001) # display dendogram
+plot(fit, labels=FALSE) # display dendogram
 rect.hclust(fit, k=5)
 
 groups <- cutree(fit, k=5)
 
 library(cluster)
-clusplot(housing_norm, groups, color=TRUE, shade=TRUE, labels=2, lines=0)
+clusplot(housing_norm, groups, color=TRUE, shade=TRUE, labels=0, lines=0)
 
 library(fpc)
 clusters <- 5
