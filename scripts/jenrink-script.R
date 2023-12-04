@@ -14,8 +14,8 @@ data_dir <- file.path(root_dir, "data")
 setwd(data_dir)
 
 
-wines <- read_csv('winequalityN.csv')
-summary(wines)
+housing <- read_csv('housing.csv')
+summary(housing)
 
 # 7 different types of quality : "6 5 7 8 4 3 9"
 unique(wines$quality)
