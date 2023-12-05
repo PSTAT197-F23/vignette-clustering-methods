@@ -12,7 +12,7 @@
 
 <meta name="author" content="Manuri Alwis, Kayla Katakis, Kylie Maeda, Jennifer Rink, Jade Thai" />
 
-<meta name="date" content="2023-12-04" />
+<meta name="date" content="2023-12-05" />
 
 <title>Clustering Methods</title>
 
@@ -341,10 +341,74 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <h1 class="title toc-ignore">Clustering Methods</h1>
 <h4 class="author">Manuri Alwis, Kayla Katakis, Kylie Maeda, Jennifer
 Rink, Jade Thai</h4>
-<h4 class="date">2023-12-04</h4>
+<h4 class="date">2023-12-05</h4>
 
 
 
+<div id="abstract" class="section level2">
+<h2>Abstract</h2>
+<p>The data used in this vignette is California Housing Data from 1990
+for each district in the state. The objective of the vignette is to
+learn about different clustering methods by utilizing them on California
+housing data. Clustering is an unsupervised machine learning method of
+identifying and grouping similar observations in a dataset without
+looking at the outcome. It is typically used to classify data into
+groups that allows for ease in understanding and manipulating.</p>
+<p>The two methods of clustering we used within this project include
+K-means and Hierarchical clustering. Ultimately, K-means resulted in
+being the best type of clustering for our dataset and while hierarchical
+clustering doesn’t usually perform well in large datasets like this one,
+we decided to include it because it’s a very commonly used method that
+has applications in other areas of PSTAT 197.</p>
+<p>We chose this topic because we were interested in understanding our
+current location within Santa Barbara and California better. As we
+approach graduation and face the reality of choosing places of
+residence, we thought it would be important to understand how factors
+like location, population, and income are related. This project
+ultimately was an interesting way to explore new methods of data
+analysis while learning about topics that were relevant and personally
+interesting.</p>
+</div>
+<div id="dataset" class="section level2">
+<h2>Dataset</h2>
+<p>The California Housing Dataset used in this analysis project measured
+by the U.S. Census Bureau in 1990 consists of 20,640 observations, 8
+predictives attributes, and a target variable. The predictive attributes
+include <code>MedInc</code> (median income), <code>HouseAge</code>
+(median age of house), <code>AveRooms</code> (average number of rooms
+per household), <code>AveBedrms</code> (average number of bedrooms per
+household), <code>Population</code>, <code>AveOccup</code> (average
+number of household members), <code>Latitude</code>, and
+<code>Longitude</code> (meant to indicate location of house). The target
+variable, <code>MedHouseVal</code>, measures the median value of houses
+for California districts, measured in $100,000s.</p>
+<p>Each observation represents one block group, which is the small
+geographical unit for which the U.S. Census Bureau publishes sample data
+and usually consists of populations of 600-3,000 people. There are no
+missing values in this dataset.</p>
+</div>
+<div id="summary-of-published-analysis" class="section level2">
+<h2>Summary of Published Analysis</h2>
+<p>Throughout this analysis project, we conducted 2 different methods of
+clustering: K-means and Hierarchical clustering.</p>
+<p>The first method of K-means clustering we used involved using the
+“elbow” method to help us choose the optimal number of clusters by
+plotting sum of squared distances (inertia) against number of clusters
+and determining the point where inertia slows down. We decided to plot
+log(population) explained by median income as well as plot latitude and
+longitude to visualize each cluster in relation to to a map of
+California. While we were able to see decent clusters, they tended to be
+pretty clumped together so our second method of K-means clustering
+involved preproccessing with Principal Component Analysis to reduce the
+dimensional of the data and choose the most important variables, which
+led to overall better clustering quality. By plotting our k-means
+clustering on a map of California, we found that the most expensive
+houses with the highest median income levels tend to be on the coast
+near the Bay Area, Los Angeles, and San Diego and the least expensive
+houses with the lowest median income levels tend to be in upper Northern
+California as well as inland Southern California.</p>
+<p>The second method of Hierarchical clustering</p>
+</div>
 <div id="objectives" class="section level1">
 <h1>Objectives</h1>
 <ul>
@@ -662,6 +726,9 @@ high.</p>
 <span id="cb14-23"><a href="#cb14-23" tabindex="-1"></a><span class="co">#&gt; [3,]        3  0.4430299       0.032</span></span>
 <span id="cb14-24"><a href="#cb14-24" tabindex="-1"></a><span class="co">#&gt; [4,]        4  0.5287624       0.029</span></span>
 <span id="cb14-25"><a href="#cb14-25" tabindex="-1"></a><span class="co">#&gt; [5,]        5  0.7387931       0.002</span></span></code></pre></div>
+</div>
+<div id="section" class="section level2">
+<h2></h2>
 </div>
 </div>
 
