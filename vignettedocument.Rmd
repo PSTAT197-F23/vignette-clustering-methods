@@ -169,7 +169,7 @@ There are general guidelines for each method, but it is a good idea to try a few
 
 We will be using the `ward.D2` method which uses the squared Euclidean distance between cluster centroids to evaluate the increase in variance when merging clusters. In other words, this method making clusters easier to differentiate by minimizing the sum of squared errors.
 
-```{r}
+```{r fig.height= 7, fig.width = 7}
 fit <- hclust(d, method="ward.D2")  # fit hierarchical clusters
 plot(fit, labels=FALSE) # display dendogram
 rect.hclust(fit, k=5)   # display optimal cutoff
@@ -179,7 +179,7 @@ rect.hclust(fit, k=5)   # display optimal cutoff
 
 An alternate visualization method for hierarchical clustering is using the `clusplot()` function. This graph allows you to plot the similarities in two-dimensional space, but we can see from the plot below that a three dimensional space would be more suitable for our data.
 
-```{r}
+```{r fig.height= 7, fig.width = 7}
 groups <- cutree(fit, k=5)    # cut dendogram 
 library(cluster)
 # Plot the clusters
