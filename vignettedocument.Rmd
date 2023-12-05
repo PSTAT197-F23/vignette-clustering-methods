@@ -18,6 +18,12 @@ knitr::opts_chunk$set(
 
 ## Abstract
 
+The data used in this vignette is California Housing Data from 1990 for each district in the state. The variables include the median income, median age of houses, average number of rooms, average number of bedrooms, population, average occupants, latitude, longitude, and median house value. The objective of the vignette is to learn about different clustering methods by utilizing them on California housing data. Clustering is an unsupervised machine learning method of identifying and grouping similar observations in a dataset without looking at the outcome. It is typically used to classify data into groups that allows for ease in understanding and manipulating.
+
+We chose this topic because we were interested in understanding our current location within Santa Barbara and California better. As we approach graduation and face the reality of choosing places of residence, we thought it would be important to understand how factors like location, population, and income are related.
+
+Throughout this analysis project, we conducted 2 different methods of clustering: K-means and Hierarchical clustering. By plotting our k-means clustering on a map of California, we found that the most expensive houses with the highest median income levels tend to be on the coast near the Bay Area, Los Angeles, and San Diego and the least expensive houses with the lowest median income levels tend to be in upper Northern California as well as inland Southern California.
+
 ## Dataset
 
 The California Housing Dataset used in this analysis project measured by the U.S. Census Bureau in 1990 consists of 20,640 observations, 8 predictives attributes, and a target variable. The predictive attributes include `MedInc` (median income), `HouseAge` (median age of house), `AveRooms` (average number of rooms per household), `AveBedrms` (average number of bedrooms per household), `Population`, `AveOccup` (average number of household members), `Latitude`, and `Longitude` (meant to indicate location of house). The target variable, `MedHouseVal`, measures the median value of houses for California districts, measured in \$100,000s.
