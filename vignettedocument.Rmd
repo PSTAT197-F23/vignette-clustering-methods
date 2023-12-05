@@ -170,8 +170,44 @@ There are general guidelines for each method, but it is a good idea to try a few
 We will be using the `ward.D2` method which uses the squared Euclidean distance between cluster centroids to evaluate the increase in variance when merging clusters. In other words, this method making clusters easier to differentiate by minimizing the sum of squared errors.
 
 ```{r}
-fit <- hclust(d, method="ward.D2")
-
+fit <- hclust(d, method="ward.D2")  # fit hierarchical clusters
 plot(fit, labels=FALSE) # display dendogram
-rect.hclust(fit, k=5)
+rect.hclust(fit, k=5)   # display optimal cutoff
+```
+
+## CLUSPLOT Visualization
+
+An alternate visualization method for hierarchical clustering is using the `clusplot()` function. This graph allows you to plot the similarities in two-dimensional space, but we can see from the plot below that a three dimensional space would be more suitable for our data.
+
+```{r}
+groups <- cutree(fit, k=5)    # cut dendogram 
+library(cluster)
+# Plot the clusters
+clusplot(housing_norm, groups, color=TRUE, shade=TRUE, labels=0, lines=0)
+```
+
+## Test Cluster Accuracy with Bootstrapping
+
+In order to determine if the grouping we found is a valid representation of "true" clusters, we randomly resample (with replacement) from our data set and rerun our clustering algorithm. We will be analyzing the bootstrap resamples using the Jaccard Index, or the Similarity Coefficient. It is defined as the size of the intersection divided by the size of the union of the sample sets. We are looking for Average Jaccard Index estimations greater than 0.6 because if the observations cluster the same way most of the time, regardless of the resampling distribution, then the average Jaccard value will be high.
+
+```{r}
+library(fpc)
+clusters <- 5   # choose optimal number of clusters
+#  clus.boot <- clusterboot(housing_norm, 
+                        # B=50, # number of bootstrap resamples
+                        # clustermethod=hclustCBI, # choose hierarchical clustering method
+                        # method="ward.D2", # use the same method as in `hclust()` 
+                        # k=clusters, # number of clusters
+                        # count=FALSE) # Show progress on screen?
+
+# Restore the object so that knitting the html doesn't take a long time
+bootstrapped_cluster<-readRDS(file = "~/FinalProject_Group4/data/HCLUST_bootstrap.rds")
+
+# Rule of thumb: . AvgJaccard <0.6 is unstable . AvgJaccard >0.85 is highly stable
+set.seed(12032023)
+AvgJaccard <- clus.boot$bootmean
+Instability <- clus.boot$bootbrd/1000
+Clusters <- c(1:clusters)
+Eval <- cbind(Clusters, AvgJaccard, Instability)
+Eval
 ```

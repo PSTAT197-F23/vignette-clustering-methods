@@ -61,7 +61,7 @@ clus.boot <- clusterboot(housing_norm,
                          count=FALSE) # Show progress on screen?
 
 # Save an object to a file
-saveRDS(clus.boot, file = "HCLUST_bootstrap.rds")
+saveRDS(clus.boot, file = "~/FinalProject_Group4/data/HCLUST_bootstrap.rds")
 # Restore the object
 #readRDS(file = "HCLUST_bootstrap.rds")
 
