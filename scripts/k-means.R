@@ -13,7 +13,7 @@ head(housing_norm)
 inertias <- c()
 
 # get inertias for different values of k
-set.seed(888)
+set.seed(777)
 for (k in 1:15) {
   model <- kmeans(housing_norm, centers = k)
   inertias <- c(inertias, model$tot.withinss)
@@ -49,7 +49,7 @@ ggplot(housing, aes(Longitude, Latitude, color = factor(cluster))) +
   geom_point()
 
 # perform PCA on the data
-pca <- prcomp(housing_norm, rank. = 2)
+pca <- prcomp(housing_norm, rank. = 4)
 
 # pca summary
 summary(pca)
