@@ -26,6 +26,8 @@ Each observation represents one block group, which is the small geographical uni
 
 ## Summary of Published Analysis
 
+The first method of K-means clustering we used involved using the "elbow" method to help us choose the optimal number of clusters by plotting sum of squared distances (inertia) against number of clusters and determining the point where inertia slows down, suggesting adding more clusters does not significantly reduce the sum of squared distances. We decided to plot log(population) explained by median income to visualize each cluster as well as plot latitude and longitude to visualize each cluster in relation to to a map of California. While we were able to see decent clusters, they tended to be pretty clumped together so our second method of K-means clustering involved preproccessing with Principal Component Analysis to reduce the dimensional of the data and choose the most important variables, which lead to overall better clustering quality.
+
 # Objectives
 
 -   Explore two different clustering methods: K-means and Hierarchical Clustering
