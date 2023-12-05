@@ -1,5 +1,6 @@
 # Hierarchical Clustering Script
 
+
 #root_dir <- rprojroot::find_rstudio_root_file()
 #data_dir <- file.path(root_dir, "data")
 #setwd(data_dir)
