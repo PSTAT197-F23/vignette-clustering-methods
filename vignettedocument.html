@@ -599,76 +599,29 @@ the resampling distribution, then the average Jaccard value will be
 high.</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="fu">library</span>(fpc)</span>
 <span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>clusters <span class="ot">&lt;-</span> <span class="dv">5</span>   <span class="co"># choose optimal number of clusters</span></span>
-<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a>clus.boot <span class="ot">&lt;-</span> <span class="fu">clusterboot</span>(housing_norm, </span>
-<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a>                         <span class="at">B=</span><span class="dv">50</span>, <span class="co"># number of bootstrap resamples</span></span>
-<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a>                         <span class="at">clustermethod=</span>hclustCBI, <span class="co"># choose hierarchical clustering method</span></span>
-<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a>                         <span class="at">method=</span><span class="st">&quot;ward.D2&quot;</span>, <span class="co"># use the same method as in `hclust()` </span></span>
-<span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a>                         <span class="at">k=</span>clusters, <span class="co"># number of clusters</span></span>
-<span id="cb13-8"><a href="#cb13-8" tabindex="-1"></a>                         <span class="at">count=</span><span class="cn">TRUE</span>) <span class="co"># Show progress on screen?</span></span>
-<span id="cb13-9"><a href="#cb13-9" tabindex="-1"></a><span class="co">#&gt; boot 1 </span></span>
-<span id="cb13-10"><a href="#cb13-10" tabindex="-1"></a><span class="co">#&gt; boot 2 </span></span>
-<span id="cb13-11"><a href="#cb13-11" tabindex="-1"></a><span class="co">#&gt; boot 3 </span></span>
-<span id="cb13-12"><a href="#cb13-12" tabindex="-1"></a><span class="co">#&gt; boot 4 </span></span>
-<span id="cb13-13"><a href="#cb13-13" tabindex="-1"></a><span class="co">#&gt; boot 5 </span></span>
-<span id="cb13-14"><a href="#cb13-14" tabindex="-1"></a><span class="co">#&gt; boot 6 </span></span>
-<span id="cb13-15"><a href="#cb13-15" tabindex="-1"></a><span class="co">#&gt; boot 7 </span></span>
-<span id="cb13-16"><a href="#cb13-16" tabindex="-1"></a><span class="co">#&gt; boot 8 </span></span>
-<span id="cb13-17"><a href="#cb13-17" tabindex="-1"></a><span class="co">#&gt; boot 9 </span></span>
-<span id="cb13-18"><a href="#cb13-18" tabindex="-1"></a><span class="co">#&gt; boot 10 </span></span>
-<span id="cb13-19"><a href="#cb13-19" tabindex="-1"></a><span class="co">#&gt; boot 11 </span></span>
-<span id="cb13-20"><a href="#cb13-20" tabindex="-1"></a><span class="co">#&gt; boot 12 </span></span>
-<span id="cb13-21"><a href="#cb13-21" tabindex="-1"></a><span class="co">#&gt; boot 13 </span></span>
-<span id="cb13-22"><a href="#cb13-22" tabindex="-1"></a><span class="co">#&gt; boot 14 </span></span>
-<span id="cb13-23"><a href="#cb13-23" tabindex="-1"></a><span class="co">#&gt; boot 15 </span></span>
-<span id="cb13-24"><a href="#cb13-24" tabindex="-1"></a><span class="co">#&gt; boot 16 </span></span>
-<span id="cb13-25"><a href="#cb13-25" tabindex="-1"></a><span class="co">#&gt; boot 17 </span></span>
-<span id="cb13-26"><a href="#cb13-26" tabindex="-1"></a><span class="co">#&gt; boot 18 </span></span>
-<span id="cb13-27"><a href="#cb13-27" tabindex="-1"></a><span class="co">#&gt; boot 19 </span></span>
-<span id="cb13-28"><a href="#cb13-28" tabindex="-1"></a><span class="co">#&gt; boot 20 </span></span>
-<span id="cb13-29"><a href="#cb13-29" tabindex="-1"></a><span class="co">#&gt; boot 21 </span></span>
-<span id="cb13-30"><a href="#cb13-30" tabindex="-1"></a><span class="co">#&gt; boot 22 </span></span>
-<span id="cb13-31"><a href="#cb13-31" tabindex="-1"></a><span class="co">#&gt; boot 23 </span></span>
-<span id="cb13-32"><a href="#cb13-32" tabindex="-1"></a><span class="co">#&gt; boot 24 </span></span>
-<span id="cb13-33"><a href="#cb13-33" tabindex="-1"></a><span class="co">#&gt; boot 25 </span></span>
-<span id="cb13-34"><a href="#cb13-34" tabindex="-1"></a><span class="co">#&gt; boot 26 </span></span>
-<span id="cb13-35"><a href="#cb13-35" tabindex="-1"></a><span class="co">#&gt; boot 27 </span></span>
-<span id="cb13-36"><a href="#cb13-36" tabindex="-1"></a><span class="co">#&gt; boot 28 </span></span>
-<span id="cb13-37"><a href="#cb13-37" tabindex="-1"></a><span class="co">#&gt; boot 29 </span></span>
-<span id="cb13-38"><a href="#cb13-38" tabindex="-1"></a><span class="co">#&gt; boot 30 </span></span>
-<span id="cb13-39"><a href="#cb13-39" tabindex="-1"></a><span class="co">#&gt; boot 31 </span></span>
-<span id="cb13-40"><a href="#cb13-40" tabindex="-1"></a><span class="co">#&gt; boot 32 </span></span>
-<span id="cb13-41"><a href="#cb13-41" tabindex="-1"></a><span class="co">#&gt; boot 33 </span></span>
-<span id="cb13-42"><a href="#cb13-42" tabindex="-1"></a><span class="co">#&gt; boot 34 </span></span>
-<span id="cb13-43"><a href="#cb13-43" tabindex="-1"></a><span class="co">#&gt; boot 35 </span></span>
-<span id="cb13-44"><a href="#cb13-44" tabindex="-1"></a><span class="co">#&gt; boot 36 </span></span>
-<span id="cb13-45"><a href="#cb13-45" tabindex="-1"></a><span class="co">#&gt; boot 37 </span></span>
-<span id="cb13-46"><a href="#cb13-46" tabindex="-1"></a><span class="co">#&gt; boot 38 </span></span>
-<span id="cb13-47"><a href="#cb13-47" tabindex="-1"></a><span class="co">#&gt; boot 39 </span></span>
-<span id="cb13-48"><a href="#cb13-48" tabindex="-1"></a><span class="co">#&gt; boot 40 </span></span>
-<span id="cb13-49"><a href="#cb13-49" tabindex="-1"></a><span class="co">#&gt; boot 41 </span></span>
-<span id="cb13-50"><a href="#cb13-50" tabindex="-1"></a><span class="co">#&gt; boot 42 </span></span>
-<span id="cb13-51"><a href="#cb13-51" tabindex="-1"></a><span class="co">#&gt; boot 43 </span></span>
-<span id="cb13-52"><a href="#cb13-52" tabindex="-1"></a><span class="co">#&gt; boot 44 </span></span>
-<span id="cb13-53"><a href="#cb13-53" tabindex="-1"></a><span class="co">#&gt; boot 45 </span></span>
-<span id="cb13-54"><a href="#cb13-54" tabindex="-1"></a><span class="co">#&gt; boot 46 </span></span>
-<span id="cb13-55"><a href="#cb13-55" tabindex="-1"></a><span class="co">#&gt; boot 47 </span></span>
-<span id="cb13-56"><a href="#cb13-56" tabindex="-1"></a><span class="co">#&gt; boot 48 </span></span>
-<span id="cb13-57"><a href="#cb13-57" tabindex="-1"></a><span class="co">#&gt; boot 49 </span></span>
-<span id="cb13-58"><a href="#cb13-58" tabindex="-1"></a><span class="co">#&gt; boot 50</span></span>
-<span id="cb13-59"><a href="#cb13-59" tabindex="-1"></a></span>
-<span id="cb13-60"><a href="#cb13-60" tabindex="-1"></a><span class="co"># Rule of thumb: . AvgJaccard &lt;0.6 is unstable . AvgJaccard &gt;0.85 is highly stable</span></span>
-<span id="cb13-61"><a href="#cb13-61" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12032023</span>)</span>
-<span id="cb13-62"><a href="#cb13-62" tabindex="-1"></a>AvgJaccard <span class="ot">&lt;-</span> clus.boot<span class="sc">$</span>bootmean</span>
-<span id="cb13-63"><a href="#cb13-63" tabindex="-1"></a>Instability <span class="ot">&lt;-</span> clus.boot<span class="sc">$</span>bootbrd<span class="sc">/</span><span class="dv">1000</span></span>
-<span id="cb13-64"><a href="#cb13-64" tabindex="-1"></a>Clusters <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span>clusters)</span>
-<span id="cb13-65"><a href="#cb13-65" tabindex="-1"></a>Eval <span class="ot">&lt;-</span> <span class="fu">cbind</span>(Clusters, AvgJaccard, Instability)</span>
-<span id="cb13-66"><a href="#cb13-66" tabindex="-1"></a>Eval</span>
-<span id="cb13-67"><a href="#cb13-67" tabindex="-1"></a><span class="co">#&gt;      Clusters AvgJaccard Instability</span></span>
-<span id="cb13-68"><a href="#cb13-68" tabindex="-1"></a><span class="co">#&gt; [1,]        1  0.5259602       0.020</span></span>
-<span id="cb13-69"><a href="#cb13-69" tabindex="-1"></a><span class="co">#&gt; [2,]        2  0.5688045       0.022</span></span>
-<span id="cb13-70"><a href="#cb13-70" tabindex="-1"></a><span class="co">#&gt; [3,]        3  0.4646553       0.031</span></span>
-<span id="cb13-71"><a href="#cb13-71" tabindex="-1"></a><span class="co">#&gt; [4,]        4  0.5066072       0.030</span></span>
-<span id="cb13-72"><a href="#cb13-72" tabindex="-1"></a><span class="co">#&gt; [5,]        5  0.7482102       0.001</span></span></code></pre></div>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a><span class="co">#  clus.boot &lt;- clusterboot(housing_norm, </span></span>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a>                        <span class="co"># B=50, # number of bootstrap resamples</span></span>
+<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a>                        <span class="co"># clustermethod=hclustCBI, # choose hierarchical clustering method</span></span>
+<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a>                        <span class="co"># method=&quot;ward.D2&quot;, # use the same method as in `hclust()` </span></span>
+<span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a>                        <span class="co"># k=clusters, # number of clusters</span></span>
+<span id="cb13-8"><a href="#cb13-8" tabindex="-1"></a>                        <span class="co"># count=FALSE) # Show progress on screen?</span></span>
+<span id="cb13-9"><a href="#cb13-9" tabindex="-1"></a></span>
+<span id="cb13-10"><a href="#cb13-10" tabindex="-1"></a><span class="co"># Restore the object so that knitting the html doesn&#39;t take a long time</span></span>
+<span id="cb13-11"><a href="#cb13-11" tabindex="-1"></a>bootstrapped_cluster<span class="ot">&lt;-</span><span class="fu">readRDS</span>(<span class="at">file =</span> <span class="st">&quot;~/FinalProject_Group4/data/HCLUST_bootstrap.rds&quot;</span>)</span>
+<span id="cb13-12"><a href="#cb13-12" tabindex="-1"></a></span>
+<span id="cb13-13"><a href="#cb13-13" tabindex="-1"></a><span class="co"># Rule of thumb: . AvgJaccard &lt;0.6 is unstable . AvgJaccard &gt;0.85 is highly stable</span></span>
+<span id="cb13-14"><a href="#cb13-14" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12032023</span>)</span>
+<span id="cb13-15"><a href="#cb13-15" tabindex="-1"></a>AvgJaccard <span class="ot">&lt;-</span> bootstrapped_cluster<span class="sc">$</span>bootmean</span>
+<span id="cb13-16"><a href="#cb13-16" tabindex="-1"></a>Instability <span class="ot">&lt;-</span> bootstrapped_cluster<span class="sc">$</span>bootbrd<span class="sc">/</span><span class="dv">1000</span></span>
+<span id="cb13-17"><a href="#cb13-17" tabindex="-1"></a>Clusters <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span>clusters)</span>
+<span id="cb13-18"><a href="#cb13-18" tabindex="-1"></a>Eval <span class="ot">&lt;-</span> <span class="fu">cbind</span>(Clusters, AvgJaccard, Instability)</span>
+<span id="cb13-19"><a href="#cb13-19" tabindex="-1"></a>Eval</span>
+<span id="cb13-20"><a href="#cb13-20" tabindex="-1"></a><span class="co">#&gt;      Clusters AvgJaccard Instability</span></span>
+<span id="cb13-21"><a href="#cb13-21" tabindex="-1"></a><span class="co">#&gt; [1,]        1  0.5160727       0.013</span></span>
+<span id="cb13-22"><a href="#cb13-22" tabindex="-1"></a><span class="co">#&gt; [2,]        2  0.5532106       0.024</span></span>
+<span id="cb13-23"><a href="#cb13-23" tabindex="-1"></a><span class="co">#&gt; [3,]        3  0.4430299       0.032</span></span>
+<span id="cb13-24"><a href="#cb13-24" tabindex="-1"></a><span class="co">#&gt; [4,]        4  0.5287624       0.029</span></span>
+<span id="cb13-25"><a href="#cb13-25" tabindex="-1"></a><span class="co">#&gt; [5,]        5  0.7387931       0.002</span></span></code></pre></div>
 </div>
 </div>
 

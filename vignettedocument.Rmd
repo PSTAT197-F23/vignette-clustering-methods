@@ -205,8 +205,8 @@ bootstrapped_cluster<-readRDS(file = "~/FinalProject_Group4/data/HCLUST_bootstra
 
 # Rule of thumb: . AvgJaccard <0.6 is unstable . AvgJaccard >0.85 is highly stable
 set.seed(12032023)
-AvgJaccard <- clus.boot$bootmean
-Instability <- clus.boot$bootbrd/1000
+AvgJaccard <- bootstrapped_cluster$bootmean
+Instability <- bootstrapped_cluster$bootbrd/1000
 Clusters <- c(1:clusters)
 Eval <- cbind(Clusters, AvgJaccard, Instability)
 Eval
