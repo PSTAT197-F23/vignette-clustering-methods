@@ -49,7 +49,7 @@ housing <- read.csv('data/housing.csv', header = TRUE)
 head(housing)
 ```
 
-When clustering, normalizing the data is recommended. Distance-based algorithms, such as k-means and hierarchical, rely on distance metrics. Normalizing the data helps prevent variables with large scales form influencing the distance metrics more than others.
+Next, we should normalize our data, as it is recommended when clustering. Distance-based algorithms, such as k-means and hierarchical, rely on distance metrics. Normalizing the data helps prevent variables with large scales form influencing the distance metrics more than others.
 
 ```{r}
 # normalize data
@@ -66,7 +66,7 @@ The elbow method is a technique used to determine the optimal number of clusters
 inertias <- c()
 
 # get inertias for different values of k
-set.seed(888)
+set.seed(777)
 for (k in 1:15) {
   model <- kmeans(housing_norm, centers = k)
   inertias <- c(inertias, model$tot.withinss)
@@ -81,16 +81,16 @@ ggplot() +
 
 Look at the plot. Where is the elbow point?
 
-If you said 6, that's correct! This is the point where the rate of decrease sharply changes. We should use this as our value of k.
+If you said 5, that's correct! This is the point where the rate of decrease sharply changes. We should use this as our value of k.
 
 ## Modeling
+
+Now that we've chosen our number of clusters to be 5, we can move on to perform k-means clustering using all of the features in our dataset.
 
 ```{r}
 # perform k-means clustering with k = 5
 kmeans <- kmeans(housing_norm, 5)
-```
 
-```{r}
 # append cluster assignments to the data (to use for plotting)
 housing$cluster <- kmeans$cluster
 ```
@@ -106,36 +106,68 @@ kmeans$centers
 
 Based on the centroids we can loosely infer:
 
--   Cluster 1 seems to group data points with highest `Latitude`, lowest `MedHouseVal`, and relatively low `House Age`. In other words, cluster 1 primarily consists of houses in northern California that tend to be lower in value and age.
+-   Cluster 1 seems to group data points with highest `Latitude`, lowest `MedHouseVal`, and relatively low `House Age`. In other words, this cluster primarily consists of houses in northern California that tend to be lower in value and age.
 
--   Cluster 2 appears to group points with high `Latitude`, high `HouseAge`, and low `Population` - that is, the least populated, oldest, northern California homes.
+-   Cluster 2 groups households with the highest median income, house value, and number of rooms.
 
--   Cluster 3 consists of homes that are the furthest south and relatively low in value. This cluster also has the lowest household median income.
+-   Cluster 3 contains homes that are typically newest in age and in the most heavily populated areas.
 
--   Cluster 4 contains homes that are typically newest in age and in the most heavily populated areas.
+-   Cluster 4 consists of homes that are the furthest south and relatively low in value. This cluster also has the lowest household median income.
 
--   Cluster 5 groups households with the highest median income, house value, and number of rooms.
+-   Cluster 5 appears to group points with high `Latitude`, high `HouseAge`, and low `Population`. That is, this cluster groups the least populated, oldest homes which are primarily located in northern California.
 
 Now, let's plot the data using different variables and observe how they are grouped in their clusters. We want to pick variables that show the greatest separation between clusters for visualization purposes.
 
-```{r fig.height= 7, fig.width = 7}
+```{r fig.height= 7, fig.width=7}
 # plot median income against population
 ggplot(housing, aes(MedInc, log(Population), color = factor(cluster))) +
-  geom_point()
+  geom_point() + 
+  labs(title = 'Figure 1: Median Income vs. Population', color = 'Cluster')
 ```
 
-The plot above shows the median income plotted against population. We see significant separation of clusters 4 and 5, as cluster 4 has large population values and cluster 5 has large household median income.
+The plot above shows the median income plotted against population. We see significant separation of clusters 2 and 3, as cluster 2 has large household median income and cluster 3 has large population values.
 
 Since our data contains latitude and longitude variables, we can actually plot a map of California to visualize where our clusters lie.
 
 ```{r fig.height= 7, fig.width = 7}
 # clusters on map of california
 ggplot(housing, aes(Longitude, Latitude, color = factor(cluster))) +
-  geom_point(alpha = 0.5) +
-  labs(title = 'Clusters on map of California', color = 'Cluster')
+  geom_point() +
+  labs(title = 'Figure 2: Clusters on map of California', color = 'Cluster')
 ```
 
-Despite some overlap between clusters, this plot shows us that our clusters generally resemble the different geographic and economic regions in California. For example, cluster 5 appears to contain the most wealthy, coastal counties like San Fransisco, Los Angeles, and San Diego, while cluster 2 resembles the greater Bay Area and surrounding areas. Cluster 4 seems to be the more heavily populated areas of Los Angeles and San Diego counties, and clusters 1 and 3 appear to be general separations of northern and southern California.
+Despite some overlap between clusters, this plot shows us that our clusters generally resemble the different geographic and economic regions in California. For example, cluster 2 appears to contain the more wealthy, coastal counties like San Fransisco, Los Angeles, and San Diego. Cluster 5 resembles the greater Bay Area and surrounding areas, while cluster 3 seems to be the most heavily populated areas of Los Angeles and San Diego counties. Clusters 1 and 4 appear to be general separations of northern and southern California, respectively.
+
+## Clustering with PCA
+
+Often times, we work with high-dimensional datasets which can make it challenging to visualize the clusters. Take Figure 1 for example - we weren't able to see much separation between clusters. Additionally, we won't always have data that lies perfectly on a map of California to make sense of the clusters. A great way to visualize a clustering analysis is by projecting the data onto the first few principal components to help reduce dimensionality.
+
+We'll start by performing PCA on the data and extracting the projected principal components.
+
+```{r message = FALSE}
+# perform PCA on the data
+pca <- prcomp(housing_norm, rank. = 4)
+
+# principal components
+pcs <- pca$x
+```
+
+Now, we can plot the data using the first two principal components and observe our clusters.
+
+```{r fig.width=7, fig.height=7, warning=FALSE}
+# attach first two principal components to the data frame for plotting
+housing$PC1 <- pcs[,1]
+housing$PC2 <- pcs[,2]
+
+# plot clusters on first two PCs
+ggplot(housing, aes(PC1, PC2, color = factor(cluster))) +
+  scale_x_continuous(limits = c(-10, 5)) +
+  scale_y_continuous(limits = c(-10, 5)) +
+  geom_point() + 
+  labs(title = 'Figure 3: Cluster plot using PCA', color = 'Cluster')
+```
+
+Nice! Our clusters are much more distinguishable now. By doing PCA, we are able to retain the important information from all of our features in just one plot!
 
 # Hierarchical Clustering
 
@@ -211,7 +243,7 @@ clusters <- 5   # choose optimal number of clusters
                         # count=FALSE) # Show progress on screen?
 
 # Restore the object so that knitting the html doesn't take a long time
-bootstrapped_cluster<-readRDS(file = "~/FinalProject_Group4/data/HCLUST_bootstrap.rds")
+bootstrapped_cluster<-readRDS(file = "data/HCLUST_bootstrap.rds")
 
 # Rule of thumb: . AvgJaccard <0.6 is unstable . AvgJaccard >0.85 is highly stable
 set.seed(12032023)
