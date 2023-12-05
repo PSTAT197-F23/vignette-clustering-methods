@@ -16,6 +16,16 @@ knitr::opts_chunk$set(
 )
 ```
 
+## Abstract
+
+## Dataset
+
+The California Housing Dataset used in this analysis project measured by the U.S. Census Bureau in 1990 consists of 20,640 observations, 8 predictives attributes, and a target variable. The predictive attributes include `MedInc` (median income), `HouseAge` (median age of house), `AveRooms` (average number of rooms per household), `AveBedrms` (average number of bedrooms per household), `Population`, `AveOccup` (average number of household members), `Latitude`, and `Longitude` (meant to indicate location of house). The target variable, `MedHouseVal`, measures the median value of houses for California districts, measured in \$100,000s.
+
+Each observation represents one block group, which is the small geographical unit for which the U.S. Census Bureau publishes sample data and usually consists of populations of 600-3,000 people. There are no missing values in this dataset.
+
+## Summary of Published Analysis
+
 # Objectives
 
 -   Explore two different clustering methods: K-means and Hierarchical Clustering
@@ -211,3 +221,5 @@ Clusters <- c(1:clusters)
 Eval <- cbind(Clusters, AvgJaccard, Instability)
 Eval
 ```
+
+## 
