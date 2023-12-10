@@ -38,13 +38,13 @@ The first method of K-means clustering we used involved using the "elbow" method
 
 The second method of hierarchial clustering was first visualized by creating a dendrogram which helps visualize how data points are grouped together at different levels of similarity. Then, we created a cluster plot with 5 clusters where each point represents one observation from the California Housing data set and each ellipsis is drawn around cluster centers, providing an indication of the spread or shape of each cluster. Something to note is that many of our ellipsis were overlapping which may indicate high-density data points within clusters or that clusters are similar in certain dimensions, making them difficult to separate visually.
 
-# Objectives
+## Objectives
 
 -   Explore two different clustering methods: K-means and Hierarchical Clustering
 
 -   Use these clustering methods to analyze California housing data
 
-# K-means clustering
+# K-means Clustering
 
 K-means clustering is one of the simplest and most popular unsupervised machine learning algorithms. The objective of k-means is to group similar data points together (into clusters) and find underlying patterns. In order to do so, this algorithm looks for a fixed number of clusters in the data. The "k" in k-means refers to the number of clusters. You will define the target number k, which represents the number of centroids you want in the data. The centroid is the center of the cluster. Every data point is assigned to a cluster through reducing the in-cluster sum of squares. Basically, the k-means algorithm finds k centroids and assigns each data point the nearest cluster, while keeping the centroids as small as possible. The "means" in k-means refers to averaging of the data.
 
@@ -181,11 +181,15 @@ ggplot(housing, aes(PC1, PC2, color = factor(cluster))) +
 
 Nice! Our clusters are much more distinguishable now. By doing PCA, we are able to retain the important information from all of our features in just one plot!
 
+
+
 # Hierarchical Clustering
 
-Hierarchical Clustering organizes data points into a tree-like structure called a dendrogram. The process starts with each data point as an individual cluster and then iteratively merges or splits clusters based on their similarities. We can use this type of clustering to identify patterns and groupings based not only on geographical and income factors but also on population density for California housing data.
+Hierarchical Clustering organizes data points into a tree-like structure called a dendrogram. The process starts with each data point as an individual cluster and then iteratively merges or splits clusters based on their similarities or differences depending on what method you choose to use.
 
 ## Set Up
+
+Load in the necessary packages and read in the data. In order to most clearly demonstrate how hierarchical clustering works, we will select just the `MedInc` (median income), `Population`, `Latitude` and `Logitude` variables and then normalize them.
 
 ```{r, message=FALSE}
 library(MASS)
@@ -213,21 +217,46 @@ There are many ways to approach hierarchical clustering, starting with the way w
 d <- dist(housing_norm, method = "euclidean") # distance matrix
 ```
 
+Below is a table of different distance metrics and what kinds of data to use them with:
+<table>
+Measure Metric               "method= "     Appropriate Data
+---------------              ----------    -----------------
+Euclidean distance           `euclidean`    continuous data
+Hamming distance             `hamming`      categorical data
+Jaccard Asymmetric distance  `binary`       binary data
+Caberra distance             `canberra`     non-negative data
+Gower distance               `gower`        mixed numerical and categorical data
+</table>
+
 ## Similarity Method
 
-Next, we must decide which similarity method to use to calculate similarities between data points.
+Next, we must decide which similarity method to use to calculate similarities between data points in the clusters. There are general guidelines for each type, but it is a good idea to try a few different methods in order to determine which one makes your clusters more interpretable.
 
-( Insert Table of similarity method here? )
+Below is a table of different similarity metrics and how they each quantify the resemblances between data points in the clusters:
+<table>
+"method= "                   Process
+----------         -----------------
+`single`              Calculates the distance between the two closest points in each cluster
+`complete`            Calculates the distance between the two most distant points in each cluster
+`centroid`            Calculates the distance between the centers of each cluster
+`average`             Calculates the mean distance between each observation in each cluster
+`ward.D`              Minimizes the sum of errors of each cluster.         
+`ward.D2`             Minimizes the squared sum of errors of each cluster.      
+</table>
 
-There are general guidelines for each method, but it is a good idea to try a few different types in order to determine which one makes your clusters more interpretable.
-
-We will be using the `ward.D2` method which uses the squared Euclidean distance between cluster centroids to evaluate the increase in variance when merging clusters. In other words, this method making clusters easier to differentiate by minimizing the sum of squared errors.
+We will be using the `ward.D2` method which uses the squared Euclidean distance between cluster centroids to evaluate the increase in variance when merging the clusters. In other words, this method makes our clusters easier to differentiate by minimizing the sum of squared errors and produces more compact clusters!
 
 ```{r fig.height= 7, fig.width = 7}
 fit <- hclust(d, method="ward.D2")  # fit hierarchical clusters
 plot(fit, labels=FALSE) # display dendogram
 rect.hclust(fit, k=5)   # display optimal cutoff
 ```
+
+As we can see from the plot above, it is pretty cumbersome to interpret our dendogram because of how large our data set is. This is a good example of how hierarchical clustering is not the best method choice for large data sets because in high-dimensional spaces, the concept of distance can become less meaningful, and clusters might not form in a way that hierarchical clustering can effectively capture.
+
+However, we can employ the same dimensionality reduction technique of Principle Component Analysis (PCA) that we did in the K-Means method in order to make hierarchical clustering more feasible for our data.
+
+
 
 ## CLUSPLOT Visualization
 
@@ -249,7 +278,7 @@ library(fpc)
 clusters <- 5   # choose optimal number of clusters
 #  clus.boot <- clusterboot(housing_norm, 
                         # B=50, # number of bootstrap resamples
-                        # clustermethod=hclustCBI, # choose hierarchical clustering method
+                        # clustermethod=hclustCBI, # choose agglomerative clustering method
                         # method="ward.D2", # use the same method as in `hclust()` 
                         # k=clusters, # number of clusters
                         # count=FALSE) # Show progress on screen?
