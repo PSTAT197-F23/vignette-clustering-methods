@@ -196,6 +196,8 @@ library(MASS)
 library(class)
 library(factoextra)
 library(cluster)
+library(ggplot2)
+library(dendextend)
 # Set Directory
 root_dir <- rprojroot::find_rstudio_root_file()
 data_dir <- file.path(root_dir, "data")
@@ -256,7 +258,37 @@ As we can see from the plot above, it is pretty cumbersome to interpret our dend
 
 However, we can employ the same dimensionality reduction technique of Principle Component Analysis (PCA) that we did in the K-Means method in order to make hierarchical clustering more feasible for our data.
 
+## Clustering with PCA
 
+```{r message = FALSE}
+# perform PCA on the data
+pca_result <- prcomp(housing_norm[, 0:4], scale = TRUE)
+# Extract the four principal components
+pc_scores <- as.data.frame(pca_result$x[, 1:4])
+# Perform Hierarchical Clustering
+hc_result <- hclust(dist(pc_scores), method = "ward.D2")
+```
+
+
+```{r fig.height= 7, fig.width = 7, warning=FALSE }
+# Plot the Hierarchical Clustering Dendrogram
+dend <- as.dendrogram(hc_result)
+dend <- color_branches(dend, h = 25, col = "blue")  # You can adjust the color and height as needed
+
+# Plot the dendrogram
+plot(dend)
+```
+
+```{r fig.height= 7, fig.width = 7}
+ # Create a combined data frame with PC scores and normalized data
+combined_data <- cbind(pc_scores, housing_norm)
+
+# Plot the principal components with color based on the Median Income
+ggplot(combined_data, aes(x = PC1, y = PC2, color = MedInc)) +
+  geom_point() +
+  scale_color_gradient(low = "blue", high = "red") +
+  theme_minimal()
+```
 
 ## CLUSPLOT Visualization
 
