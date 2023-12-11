@@ -34,3 +34,10 @@ Bock, Tim. “What Is Hierarchical Clustering?” Displayr, 13 Sept. 2022, www.d
 
 Patlolla, Chaitanya Reddy. “Understanding the Concept of Hierarchical Clustering.” Medium, Towards Data Science, 29 May 2020, towardsdatascience.com/understanding-the-concept-of-hierarchical-clustering-technique-c6e8243758ec.
 
+
+**Further Readings**:
+
+*Density-Based Clustering: DBSCAN*:
+
+Yildirim, Soner. “DBSCAN Clustering - Explained.” Medium, Towards Data Science, 22 Apr. 2020, towardsdatascience.com/dbscan-clustering-explained-97556a2ad556#:~:text=DBSCAN%20stands%20for%20density%2Dbased,many%20points%20from%20that%20cluster. 
+
