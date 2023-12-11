@@ -1,6 +1,5 @@
 # Vignette Script
 
-
 # K-Means Clustering
 
 # load packages
