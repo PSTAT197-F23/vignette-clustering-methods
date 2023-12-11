@@ -1,6 +1,6 @@
 # Final-Project
 
-Vignette on implementing different clustering methods using California housing data; created as a class project for PSTAT197A in Fall 2023.
+Vignette on implementing K-Means and Hierarchical clustering methods using California housing data; created as a class project for PSTAT197A in Fall 2023.
 
 ## Contributors ##
 Manuri Alwis, Jade Thai, Jennifer Rink, Kayla Katakis, and Kylie Maeda
