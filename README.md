@@ -35,9 +35,15 @@ Bock, Tim. “What Is Hierarchical Clustering?” Displayr, 13 Sept. 2022, www.d
 Patlolla, Chaitanya Reddy. “Understanding the Concept of Hierarchical Clustering.” Medium, Towards Data Science, 29 May 2020, towardsdatascience.com/understanding-the-concept-of-hierarchical-clustering-technique-c6e8243758ec.
 
 
+
 **Further Readings**:
 
 *Density-Based Clustering: DBSCAN*:
 
 Yildirim, Soner. “DBSCAN Clustering - Explained.” Medium, Towards Data Science, 22 Apr. 2020, towardsdatascience.com/dbscan-clustering-explained-97556a2ad556#:~:text=DBSCAN%20stands%20for%20density%2Dbased,many%20points%20from%20that%20cluster. 
+
+
+*Balanced Iterative Reducing and Clustering Using Hierarchies: BIRCH*:
+
+Benzer, Noel Job. “Balanced Iterative Reducing and Clustering Using Heirarchies (BIRCH).” Medium, Medium, 25 May 2022, medium.com/@noel.cs21/balanced-iterative-reducing-and-clustering-using-heirachies-birch-5680adffaa58. 
 
