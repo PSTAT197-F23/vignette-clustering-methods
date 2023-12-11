@@ -5,7 +5,7 @@ Vignette on implementing different clustering methods using California housing d
 ## Contributors ##
 Manuri Alwis, Jade Thai, Jennifer Rink, Kayla Katakis, and Kylie Maeda
 
-## Vignette abstract ##
+## Vignette Abstract ##
 Clustering is an unsupervised machine learning method of identifying and grouping similar observations in a dataset without looking at the outcome. It is typically used to classify data into groups that allows for ease in understanding and manipulating. The data used in this vignette is California Housing Data from 1990 for each district in the state. The variables include the median income, median age of houses, average number of rooms, average number of bedrooms, population, average occupants, latitude, longitude, and median house value. The objective of the vignette is to learn about different clustering methods by utilizing them on California housing data. ADD OUTCOMES
 
 ## Repository Contents ##
@@ -21,7 +21,7 @@ In this repository, we have our main vignette, which contains our data explorati
 
 The repository also contains this `README.md` file, which contains the description, contributors, abstract, contents, and references for this project.
 
-## Reference list ##: 
+## Reference list ## 
 
 **K-Means Clustering**:
 
