@@ -1,4 +1,4 @@
-# Final-Project
+# K-Means and Hierarchical Clustering Techniques
 
 Vignette on implementing K-Means and Hierarchical clustering methods using California housing data; created as a class project for PSTAT197A in Fall 2023.
 
@@ -13,15 +13,15 @@ In this repository, we have our main vignette, which contains our data explorati
 
 -   data: contains the data used, files include `housing.csv`, and `HCLUST_bootstrap.rds` which is a bootstrapping object for the hierarchical clustering method
 
--   scripts: two main scripts used to carry out clustering `k-means.R` and `hierarchical.R`, as well as a drafts sub-folder
+-   scripts: one script `vignette-script.R` that contains all the code used in the vignette markdown with line annotations
 
-    -   drafts: contains R scripts that were later changed to be included in the final vignette
+    -   drafts: two scripts used to carry out clustering techniques `k-means.R` and `hierarchical.R`
 
 -   images: contains .png files of plots and images used in the final vignette
 
 The repository also contains this `README.md` file, which contains the description, contributors, abstract, contents, and references for this project.
 
-## Reference list ## 
+## Reference List ## 
 
 **K-Means Clustering**:
 
