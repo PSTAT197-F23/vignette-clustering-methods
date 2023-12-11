@@ -46,6 +46,7 @@ The first method of K-means clustering we used involved using the "elbow" method
 
 The second method of hierarchial clustering was first visualized by creating a dendrogram which helps visualize how data points are grouped together at different levels of similarity. Then, we created a cluster plot with 5 clusters where each point represents one observation from the California Housing data set and each ellipsis is drawn around cluster centers, providing an indication of the spread or shape of each cluster. Something to note is that many of our ellipsis were overlapping which may indicate high-density data points within clusters or that clusters are similar in certain dimensions, making them difficult to separate visually.
 
+\break
 
 # K-means Clustering
 
