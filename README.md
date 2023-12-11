@@ -24,6 +24,7 @@ Reference list:
 <https://www.explorium.ai/blog/machine-learning/clustering-when-you-should-use-it-and-avoid-it/#>:\~:text=Clustering
 
 *Hierarchical Clustering*:
+
 Bock, Tim. “What Is Hierarchical Clustering?” Displayr, 13 Sept. 2022, www.displayr.com/what-is-hierarchical-clustering/#:~:text=Hierarchical%20clustering%2C%20also%20known%20as,broadly%20similar%20to%20each%20other. 
 
 Patlolla, Chaitanya Reddy. “Understanding the Concept of Hierarchical Clustering.” Medium, Towards Data Science, 29 May 2020, towardsdatascience.com/understanding-the-concept-of-hierarchical-clustering-technique-c6e8243758ec. 
