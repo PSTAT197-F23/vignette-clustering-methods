@@ -39,7 +39,7 @@ Patlolla, Chaitanya Reddy. “Understanding the Concept of Hierarchical Clusteri
 
 
 
-## Further Readings ##:
+## Further Readings ##
 
 **Density-Based Clustering: DBSCAN**:
 
