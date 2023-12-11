@@ -18,13 +18,19 @@ Repository contents: In this repository, we have our main vignette, which contai
 
 The repository also contains this `README.md` file, which contains the description, contributors, abstract, contents, and references for this project.
 
-Reference list: 
-[https://towardsdatascience.com/understanding-k-means-clustering-in-machine-learning-6a6e67336aa1\\](https://towardsdatascience.com/understanding-k-means-clustering-in-machine-learning-6a6e67336aa1\){.uri}
+**Reference list**: 
 
-<https://www.explorium.ai/blog/machine-learning/clustering-when-you-should-use-it-and-avoid-it/#>:\~:text=Clustering
+*K-Means Clustering*:
+
+(LEDU), Education Ecosystem. “Understanding K-Means Clustering in Machine Learning.” Medium, Towards Data Science, 12 Sept. 2018, towardsdatascience.com/understanding-k-means-clustering-in-machine-learning-6a6e67336aa1. 
+
+
+“ML Clustering: When to Use Cluster Analysis, When to Avoid It.” Explorium, 6 Aug. 2023, www.explorium.ai/blog/machine-learning/clustering-when-you-should-use-it-and-avoid-it/#.
+
 
 *Hierarchical Clustering*:
 
 Bock, Tim. “What Is Hierarchical Clustering?” Displayr, 13 Sept. 2022, www.displayr.com/what-is-hierarchical-clustering/#:~:text=Hierarchical%20clustering%2C%20also%20known%20as,broadly%20similar%20to%20each%20other. 
 
-Patlolla, Chaitanya Reddy. “Understanding the Concept of Hierarchical Clustering.” Medium, Towards Data Science, 29 May 2020, towardsdatascience.com/understanding-the-concept-of-hierarchical-clustering-technique-c6e8243758ec. 
+Patlolla, Chaitanya Reddy. “Understanding the Concept of Hierarchical Clustering.” Medium, Towards Data Science, 29 May 2020, towardsdatascience.com/understanding-the-concept-of-hierarchical-clustering-technique-c6e8243758ec.
+
