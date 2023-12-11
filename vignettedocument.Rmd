@@ -2,7 +2,9 @@
 title: "Clustering Methods"
 author: "Manuri Alwis, Kayla Katakis, Kylie Maeda, Jennifer Rink, Jade Thai"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output: 
+  rmarkdown::html_vignette:
+    toc: TRUE
 vignette: >
   %\VignetteIndexEntry{Vignette Title}
   %\VignetteEngine{knitr::rmarkdown}
@@ -15,6 +17,12 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 ```
+
+## Objectives
+
+-   Explore two different clustering methods: K-means and Hierarchical Clustering
+
+-   Use these clustering methods to analyze California housing data
 
 ## Abstract
 
@@ -38,11 +46,6 @@ The first method of K-means clustering we used involved using the "elbow" method
 
 The second method of hierarchial clustering was first visualized by creating a dendrogram which helps visualize how data points are grouped together at different levels of similarity. Then, we created a cluster plot with 5 clusters where each point represents one observation from the California Housing data set and each ellipsis is drawn around cluster centers, providing an indication of the spread or shape of each cluster. Something to note is that many of our ellipsis were overlapping which may indicate high-density data points within clusters or that clusters are similar in certain dimensions, making them difficult to separate visually.
 
-## Objectives
-
--   Explore two different clustering methods: K-means and Hierarchical Clustering
-
--   Use these clustering methods to analyze California housing data
 
 # K-means Clustering
 
@@ -194,10 +197,12 @@ Load in the necessary packages and read in the data. In order to most clearly de
 ```{r, message=FALSE}
 library(MASS)
 library(class)
+library(scatterplot3d)
 library(factoextra)
 library(cluster)
 library(ggplot2)
 library(dendextend)
+library(fpc)
 # Set Directory
 root_dir <- rprojroot::find_rstudio_root_file()
 data_dir <- file.path(root_dir, "data")
@@ -250,34 +255,40 @@ We will be using the `ward.D2` method which uses the squared Euclidean distance 
 
 ```{r fig.height= 7, fig.width = 7}
 fit <- hclust(d, method="ward.D2")  # fit hierarchical clusters
-plot(fit, labels=FALSE) # display dendogram
+plot(fit, labels=FALSE) # display dendrogram
 rect.hclust(fit, k=5)   # display optimal cutoff
 ```
 
-As we can see from the plot above, it is pretty cumbersome to interpret our dendogram because of how large our data set is. This is a good example of how hierarchical clustering is not the best method choice for large data sets because in high-dimensional spaces, the concept of distance can become less meaningful, and clusters might not form in a way that hierarchical clustering can effectively capture.
+As we can see from the plot above, it is pretty cumbersome to interpret our dendrogram because of how large our data set is. This is a good example of how hierarchical clustering is not the best method choice for large data sets because in high-dimensional spaces, the concept of distance can become less meaningful, and clusters might not form in a way that hierarchical clustering can effectively capture.
 
 However, we can employ the same dimensionality reduction technique of Principle Component Analysis (PCA) that we did in the K-Means method in order to make hierarchical clustering more feasible for our data.
 
 ## Clustering with PCA
 
+Here we perform principle component analysis on our four subsetted variables and then calculate hierarchical clustering using the `ward.D2` method.
+
 ```{r message = FALSE}
 # perform PCA on the data
 pca_result <- prcomp(housing_norm[, 0:4], scale = TRUE)
+pca_result
 # Extract the four principal components
 pc_scores <- as.data.frame(pca_result$x[, 1:4])
 # Perform Hierarchical Clustering
 hc_result <- hclust(dist(pc_scores), method = "ward.D2")
 ```
 
+Based on the principle components we can loosely infer:
 
-```{r fig.height= 7, fig.width = 7, warning=FALSE }
-# Plot the Hierarchical Clustering Dendrogram
-dend <- as.dendrogram(hc_result)
-dend <- color_branches(dend, h = 25, col = "blue")  # You can adjust the color and height as needed
+-   *Principle Component 1*: `Latitude` and `Longitude` have nearly equal but opposite high magnitude loadings. This suggests that PC1 primarily captures a geographical-spatial pattern.
 
-# Plot the dendrogram
-plot(dend)
-```
+-   *Principle Component 2*: `MedInc` has a very high negative loading, indicating a strong inverse relationship between median income and values along PC2. This suggests that PC2 primarily captures variations in median income.
+
+-   *Principle Component 3*: `Population` has a very high negative loading, indicating a strong inverse relationship with population density. This suggests that PC3 primarily captures a population pattern.
+
+-   *Principle Component 4*: PC4 seems to capture similar spatial information to PC1, except both `Latitude` and `Longitude` have the same high magnitude loadings. These strong associations suggest that PC4 represents a specific spatial variation or trend in the dataset.
+
+
+Now we can plot the first two principle components and see how they capture information about the Median Income of houses. 
 
 ```{r fig.height= 7, fig.width = 7}
  # Create a combined data frame with PC scores and normalized data
@@ -290,24 +301,49 @@ ggplot(combined_data, aes(x = PC1, y = PC2, color = MedInc)) +
   theme_minimal()
 ```
 
+As we can see from the plot above, there is no definitive pattern between the coordinates of a house and the median income of the area it is in. There is an almost symmetrical collection of points around 0 on the x-axis which is where PC1 is plotted. Since PC2 contains information on Median Income, the color gradient confirms the preciseness of our principle component, and helps to reinforce the idea that it is difficult to hierarchical cluster the housing data based on median income because there are high median income and low median income areas in Northern and Southern California.
+
+
 ## CLUSPLOT Visualization
 
 An alternate visualization method for hierarchical clustering is using the `clusplot()` function. This graph allows you to plot the similarities in two-dimensional space, but we can see from the plot below that a three dimensional space would be more suitable for our data.
 
 ```{r fig.height= 7, fig.width = 7}
-groups <- cutree(fit, k=5)    # cut dendogram 
-library(cluster)
+groups <- cutree(fit, k=5)    # cut dendrogram 
 # Plot the clusters
 clusplot(housing_norm, groups, color=TRUE, shade=TRUE, labels=0, lines=0)
 ```
 
+
+```{r fig.height= 7, fig.width = 7}
+# Create a 3D scatter plot using the first three columns of housing_norm
+scatterplot3d(
+  x = housing_norm$MedInc,
+  y = housing_norm$Population,
+  z = housing_norm$Latitude,
+  color = groups,
+  pch = 16,
+  main = "3D Cluster Plot"
+)
+```
+
+This 3-dimensional plot helps better distinguish our clusters! Because it is hard to visualize 4-dimensions on a 2D computer screen, we also could use a variable like `Population` or `MedInc` to assign color, so we could see our fourth variable. However, the usefulness depends on the data you are analyzing and we don't think this would improve the analysis of our data by much.
+
 ## Test Cluster Accuracy with Bootstrapping
 
-In order to determine if the grouping we found is a valid representation of "true" clusters, we randomly resample (with replacement) from our data set and rerun our clustering algorithm. We will be analyzing the bootstrap resamples using the Jaccard Index, or the Similarity Coefficient. It is defined as the size of the intersection divided by the size of the union of the sample sets. We are looking for Average Jaccard Index estimations greater than 0.6 because if the observations cluster the same way most of the time, regardless of the resampling distribution, then the average Jaccard value will be high.
+In order to determine if the grouping we found is a valid representation of "true" clusters, we randomly resample (with replacement) from our data set and rerun our clustering algorithm. We will be analyzing the bootstrap resamples using the Jaccard Index, or the Similarity Coefficient. 
+
+The Jaccard Index is defined as the size of the intersection divided by the size of the union of the sample sets. 
+
+$$
+J(A, B) = \frac{|A \cap B|}{|A \cup B|}
+$$
+
+We are looking for Average Jaccard Index estimations greater than 0.6 because if the observations cluster the same way most of the time, regardless of the resampling distribution, then the average Jaccard value will be high.
 
 ```{r}
-library(fpc)
 clusters <- 5   # choose optimal number of clusters
+# comment out the clusterboot() function because it takes a while to run
 #  clus.boot <- clusterboot(housing_norm, 
                         # B=50, # number of bootstrap resamples
                         # clustermethod=hclustCBI, # choose agglomerative clustering method
@@ -315,10 +351,10 @@ clusters <- 5   # choose optimal number of clusters
                         # k=clusters, # number of clusters
                         # count=FALSE) # Show progress on screen?
 
-# Restore the object so that knitting the html doesn't take a long time
+# Here we restore the object so that knitting the html doesn't take a long time
 bootstrapped_cluster<-readRDS(file = "data/HCLUST_bootstrap.rds")
 
-# Rule of thumb: . AvgJaccard <0.6 is unstable . AvgJaccard >0.85 is highly stable
+# General Guidelines: AvgJaccard <0.6 is unstable . AvgJaccard >0.85 is highly stable
 set.seed(12032023)
 AvgJaccard <- bootstrapped_cluster$bootmean
 Instability <- bootstrapped_cluster$bootbrd/1000
@@ -327,4 +363,11 @@ Eval <- cbind(Clusters, AvgJaccard, Instability)
 Eval
 ```
 
-## 
+Therefore, we can see that only our fifth cluster is moderately stable with an average Jaccard Index of ~0.74. So we can conclude that the hierarchical clustering method did not work very well with our data set. This could be due to many reasons like our clusters have complex structures, the subjectivity of cutting our dendrogram, and our data having high dimensionality. 
+
+However, hierarchical clustering is still an effective method to explore when using clustering techniques. Unlike k-means clustering, hierarchical clustering does not require the user to specify the number of clusters in advance and the dendrogram structure allows users to explore different levels of granularity and choose the number of clusters based on the data's natural grouping. Hierarchical Clustering is also capable of capturing nested or overlapping clusters which is useful when data has subgroups.
+
+
+# Conclusion
+
+In conclusion, both hierarchical and k-means clustering are valuable techniques in data analysis, offering distinct advantages depending on the nature of the data you are working with and the goals of your analysis. Clustering is an extremely useful technique in data analysis and is commonly used in customer segmentation, image processing, and natural language processing. Its ability to uncover hidden patterns allows data scientists to describe and work with data in complex and nuanced ways that offers new interpretations and outlooks in a field that we still have so much to learn about.
