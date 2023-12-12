@@ -26,6 +26,8 @@ The repository also contains this `README.md` file, which contains the descripti
 
 ## Reference List
 
+**California Housing Dataset**: https://www.kaggle.com/datasets/camnugent/california-housing-prices
+
 **K-Means Clustering**:
 
 (LEDU), Education Ecosystem. "Understanding K-Means Clustering in Machine Learning." Medium, Towards Data Science, 12 Sept. 2018, towardsdatascience.com/understanding-k-means-clustering-in-machine-learning-6a6e67336aa1.
