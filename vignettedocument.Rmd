@@ -223,7 +223,9 @@ There are many ways to approach hierarchical clustering, starting with the way w
 d <- dist(housing_norm, method = "euclidean") # distance matrix
 ```
 
-Below is a table of different distance metrics and what kinds of data to use them with: <table>
+Below is a table of different distance metrics and what kinds of data to use them with:
+
+<table>
 Measure Metric               "method= "     Appropriate Data
 ---------------              ----------    -----------------
 Euclidean distance           `euclidean`    continuous data
@@ -237,10 +239,11 @@ Gower distance               `gower`        mixed numerical and categorical data
 
 Next, we must decide which similarity method to use to calculate similarities between data points in the clusters. There are general guidelines for each type, but it is a good idea to try a few different methods in order to determine which one makes your clusters more interpretable.
 
-Below is a table of different similarity metrics and how they each quantify the resemblances between data points in the clusters: 
+Below is a table of different similarity metrics and how they each quantify the resemblances between data points in the clusters:
+
 <table>
 "method= "                   Process
-----------         -----------------
+----------            ----------------
 `single`              Calculates the distance between the two closest points in each cluster
 `complete`            Calculates the distance between the two most distant points in each cluster
 `centroid`            Calculates the distance between the centers of each cluster

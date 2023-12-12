@@ -705,8 +705,8 @@ being analyzed. For our example, we will be using the
 <code>euclidean</code> distance which works well with continuous
 data.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">dist</span>(housing_norm, <span class="at">method =</span> <span class="st">&quot;euclidean&quot;</span>) <span class="co"># distance matrix</span></span></code></pre></div>
-Below is a table of different distance metrics and what kinds of data to
-use them with:
+<p>Below is a table of different distance metrics and what kinds of data
+to use them with:</p>
 <table>
 <table>
 <thead>
@@ -757,49 +757,49 @@ similarities between data points in the clusters. There are general
 guidelines for each type, but it is a good idea to try a few different
 methods in order to determine which one makes your clusters more
 interpretable.</p>
-Below is a table of different similarity metrics and how they each
-quantify the resemblances between data points in the clusters:
+<p>Below is a table of different similarity metrics and how they each
+quantify the resemblances between data points in the clusters:</p>
 <table>
 <table>
 <thead>
 <tr class="header">
 <th>“method=”</th>
-<th align="right">Process</th>
+<th align="center">Process</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td><code>single</code></td>
-<td align="right">Calculates the distance between the two closest points
-in each cluster</td>
+<td align="center">Calculates the distance between the two closest
+points in each cluster</td>
 </tr>
 <tr class="even">
 <td><code>complete</code></td>
-<td align="right">Calculates the distance between the two most distant
+<td align="center">Calculates the distance between the two most distant
 points in each cluster</td>
 </tr>
 <tr class="odd">
 <td><code>centroid</code></td>
-<td align="right">Calculates the distance between the centers of each
+<td align="center">Calculates the distance between the centers of each
 cluster</td>
 </tr>
 <tr class="even">
 <td><code>average</code></td>
-<td align="right">Calculates the mean distance between each observation
+<td align="center">Calculates the mean distance between each observation
 in each cluster</td>
 </tr>
 <tr class="odd">
 <td><code>ward.D</code></td>
-<td align="right">Minimizes the sum of errors of each cluster.</td>
+<td align="center">Minimizes the sum of errors of each cluster.</td>
 </tr>
 <tr class="even">
 <td><code>ward.D2</code></td>
-<td align="right">Minimizes the squared sum of errors of each
+<td align="center">Minimizes the squared sum of errors of each
 cluster.</td>
 </tr>
 <tr class="odd">
 <td></td>
-<td align="right"></td>
+<td align="center"></td>
 </tr>
 </tbody>
 </table>
