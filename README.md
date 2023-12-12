@@ -44,8 +44,8 @@ Patlolla, Chaitanya Reddy. "Understanding the Concept of Hierarchical Clustering
 
 **Density-Based Clustering: DBSCAN**:
 
-Yildirim, Soner. "DBSCAN Clustering - Explained." Medium, Towards Data Science, 22 Apr. 2020, towardsdatascience.com/dbscan-clustering-explained-97556a2ad556#:\~:text=DBSCAN%20stands%20for%20density%2Dbased,many%20points%20from%20that%20cluster.
+Yildirim, Soner. "DBSCAN Clustering - Explained." Medium, Towards Data Science, 22 Apr. 2020, https://towardsdatascience.com/dbscan-clustering-explained-97556a2ad556#:\~:text=DBSCAN%20stands%20for%20density%2Dbased,many%20points%20from%20that%20cluster.
 
 **Balanced Iterative Reducing and Clustering Using Hierarchies: BIRCH**:
 
-Benzer, Noel Job. "Balanced Iterative Reducing and Clustering Using Heirarchies (BIRCH)." Medium, Medium, 25 May 2022, [medium.com/\@noel.cs21](mailto:medium.com/@noel.cs21){.email}/balanced-iterative-reducing-and-clustering-using-heirachies-birch-5680adffaa58.
+Benzer, Noel Job. "Balanced Iterative Reducing and Clustering Using Heirarchies (BIRCH)." Medium, Medium, 25 May 2022, https://medium.com/@noel.cs21/balanced-iterative-reducing-and-clustering-using-heirachies-birch-5680adffaa58
