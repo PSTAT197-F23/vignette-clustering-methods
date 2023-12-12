@@ -225,15 +225,14 @@ d <- dist(housing_norm, method = "euclidean") # distance matrix
 
 Below is a table of different distance metrics and what kinds of data to use them with:
 
-<table>
-Measure Metric               "method= "     Appropriate Data
----------------              ----------    -----------------
-Euclidean distance           `euclidean`    continuous data
-Hamming distance             `hamming`      categorical data
-Jaccard Asymmetric distance  `binary`       binary data
-Caberra distance             `canberra`     non-negative data
-Gower distance               `gower`        mixed numerical and categorical data
-</table>
+| Measure Metric              | "method="   |                     Appropriate Data |
+|:----------------------------|-------------|-------------------------------------:|
+| Euclidean distance          | `euclidean` |                      continuous data |
+| Hamming distance            | `hamming`   |                     categorical data |
+| Jaccard Asymmetric distance | `binary`    |                          binary data |
+| Caberra distance            | `canberra`  |                    non-negative data |
+| Gower distance              | `gower`     | mixed numerical and categorical data |
+|                             |             |                                      |
 
 ## Similarity Method
 
@@ -241,16 +240,14 @@ Next, we must decide which similarity method to use to calculate similarities be
 
 Below is a table of different similarity metrics and how they each quantify the resemblances between data points in the clusters:
 
-<table>
-"method= "                   Process
-----------            ----------------
-`single`              Calculates the distance between the two closest points in each cluster
-`complete`            Calculates the distance between the two most distant points in each cluster
-`centroid`            Calculates the distance between the centers of each cluster
-`average`             Calculates the mean distance between each observation in each cluster
-`ward.D`              Minimizes the sum of errors of each cluster.         
-`ward.D2`             Minimizes the squared sum of errors of each cluster.      
-</table>
+| "method="   |                                                                                      Process |
+|:------------|---------------------------------------------------------------------------------------------:|
+| `single`    |       Calculates the distance between the two closest points in each cluster continuous data |
+| `complete`  | Calculates the distance between the two most distant points in each cluster categorical data |
+| `centroid`  |                                  Calculates the distance between the centers of each cluster |
+| `average`   |                        Calculates the mean distance between each observation in each cluster |
+| `ward.D`    |                                                  Minimizes the sum of errors of each cluster |
+| `ward.D2`   |                                          Minimizes the squared sum of errors of each cluster |
 
 We will be using the `ward.D2` method which uses the squared Euclidean distance between cluster centroids to evaluate the increase in variance when merging the clusters. In other words, this method makes our clusters easier to differentiate by minimizing the sum of squared errors and produces more compact clusters!
 

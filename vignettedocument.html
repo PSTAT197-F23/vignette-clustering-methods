@@ -708,7 +708,11 @@ data.</p>
 <p>Below is a table of different distance metrics and what kinds of data
 to use them with:</p>
 <table>
-<table>
+<colgroup>
+<col width="36%" />
+<col width="16%" />
+<col width="47%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left">Measure Metric</th>
@@ -760,46 +764,45 @@ interpretable.</p>
 <p>Below is a table of different similarity metrics and how they each
 quantify the resemblances between data points in the clusters:</p>
 <table>
-<table>
+<colgroup>
+<col width="12%" />
+<col width="87%" />
+</colgroup>
 <thead>
 <tr class="header">
-<th>“method=”</th>
-<th align="center">Process</th>
+<th align="left">“method=”</th>
+<th align="right">Process</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><code>single</code></td>
-<td align="center">Calculates the distance between the two closest
-points in each cluster</td>
+<td align="left"><code>single</code></td>
+<td align="right">Calculates the distance between the two closest points
+in each cluster continuous data</td>
 </tr>
 <tr class="even">
-<td><code>complete</code></td>
-<td align="center">Calculates the distance between the two most distant
-points in each cluster</td>
+<td align="left"><code>complete</code></td>
+<td align="right">Calculates the distance between the two most distant
+points in each cluster categorical data</td>
 </tr>
 <tr class="odd">
-<td><code>centroid</code></td>
-<td align="center">Calculates the distance between the centers of each
+<td align="left"><code>centroid</code></td>
+<td align="right">Calculates the distance between the centers of each
 cluster</td>
 </tr>
 <tr class="even">
-<td><code>average</code></td>
-<td align="center">Calculates the mean distance between each observation
+<td align="left"><code>average</code></td>
+<td align="right">Calculates the mean distance between each observation
 in each cluster</td>
 </tr>
 <tr class="odd">
-<td><code>ward.D</code></td>
-<td align="center">Minimizes the sum of errors of each cluster.</td>
+<td align="left"><code>ward.D</code></td>
+<td align="right">Minimizes the sum of errors of each cluster</td>
 </tr>
 <tr class="even">
-<td><code>ward.D2</code></td>
-<td align="center">Minimizes the squared sum of errors of each
-cluster.</td>
-</tr>
-<tr class="odd">
-<td></td>
-<td align="center"></td>
+<td align="left"><code>ward.D2</code></td>
+<td align="right">Minimizes the squared sum of errors of each
+cluster</td>
 </tr>
 </tbody>
 </table>
