@@ -44,7 +44,7 @@ Throughout this analysis project, we conducted 2 different methods of clustering
 
 The first method of K-means clustering we used involved using the "elbow" method to help us choose the optimal number of clusters by plotting sum of squared distances (inertia) against number of clusters and determining the point where inertia slows down. We decided to plot log(population) explained by median income as well as plot latitude and longitude to visualize each cluster in relation to to a map of California. While we were able to see decent clusters, they tended to be pretty clumped together so our second method of K-means clustering involved preproccessing with Principal Component Analysis to reduce the dimensional of the data and choose the most important variables, which led to overall better clustering quality. By plotting our k-means clustering on a map of California, we found that the most expensive houses with the highest median income levels tend to be on the coast near the Bay Area, Los Angeles, and San Diego and the least expensive houses with the lowest median income levels tend to be in upper Northern California as well as inland Southern California.
 
-The second method of hierarchial clustering was first visualized by creating a dendrogram which helps visualize how data points are grouped together at different levels of similarity. Then, we created a cluster plot with 5 clusters where each point represents one observation from the California Housing data set and each ellipsis is drawn around cluster centers, providing an indication of the spread or shape of each cluster. Something to note is that many of our ellipsis were overlapping which may indicate high-density data points within clusters or that clusters are similar in certain dimensions, making them difficult to separate visually.
+The second method of hierarchical clustering was first visualized by creating a dendrogram which helps visualize how data points are grouped together at different levels of similarity. Then, we created a cluster plot with 5 clusters where each point represents one observation from the California Housing data set and each ellipsis is drawn around cluster centers, providing an indication of the spread or shape of each cluster. Something to note is that many of our ellipsis were overlapping which may indicate high-density data points within clusters or that clusters are similar in certain dimensions, making them difficult to separate visually.
 
 \break
 
@@ -185,8 +185,6 @@ ggplot(housing, aes(PC1, PC2, color = factor(cluster))) +
 
 Nice! Our clusters are much more distinguishable now. By doing PCA, we are able to retain the important information from all of our features in just one plot!
 
-
-
 # Hierarchical Clustering
 
 Hierarchical Clustering organizes data points into a tree-like structure called a dendrogram. The process starts with each data point as an individual cluster and then iteratively merges or splits clusters based on their similarities or differences depending on what method you choose to use.
@@ -225,32 +223,13 @@ There are many ways to approach hierarchical clustering, starting with the way w
 d <- dist(housing_norm, method = "euclidean") # distance matrix
 ```
 
-Below is a table of different distance metrics and what kinds of data to use them with:
-<table>
-Measure Metric               "method= "     Appropriate Data
----------------              ----------    -----------------
-Euclidean distance           `euclidean`    continuous data
-Hamming distance             `hamming`      categorical data
-Jaccard Asymmetric distance  `binary`       binary data
-Caberra distance             `canberra`     non-negative data
-Gower distance               `gower`        mixed numerical and categorical data
-</table>
+Below is a table of different distance metrics and what kinds of data to use them with: 31b8e172-b470-440e-83d8-e6b185028602:dAB5AHAAZQA6AE8AQQBCAGwAQQBHAFkAQQBOAFEAQgBoAEEARABjAEEATgB3AEEAeQBBAEMAMABBAFoAQQBCAGsAQQBEAFkAQQBNAHcAQQB0AEEARABRAEEATgBnAEEAeQBBAEQASQBBAEwAUQBBADQAQQBEAFEAQQBZAGcAQgBtAEEAQwAwAEEAWQBRAEIAbQBBAEQARQBBAE8AUQBBADUAQQBEAFUAQQBZAFEAQQB4AEEARwBJAEEATQBnAEIAaQBBAEQAawBBAAoAcABvAHMAaQB0AGkAbwBuADoATQBRAEEAegBBAEQAUQBBAE4AQQBBADMAQQBBAD0APQAKAHAAcgBlAGYAaQB4ADoACgBzAG8AdQByAGMAZQA6AFAAQQBCADAAQQBHAEUAQQBZAGcAQgBzAEEARwBVAEEAUABnAEEASwBBAEUAMABBAFoAUQBCAGgAQQBIAE0AQQBkAFEAQgB5AEEARwBVAEEASQBBAEIATgBBAEcAVQBBAGQAQQBCAHkAQQBHAGsAQQBZAHcAQQBnAEEAQwBBAEEASQBBAEEAZwBBAEMAQQBBAEkAQQBBAGcAQQBDAEEAQQBJAEEAQQBnAEEAQwBBAEEASQBBAEEAZwBBAEMAQQBBAEkAQQBBAGkAQQBHADAAQQBaAFEAQgAwAEEARwBnAEEAYgB3AEIAawBBAEQAMABBAEkAQQBBAGkAQQBDAEEAQQBJAEEAQQBnAEEAQwBBAEEASQBBAEIAQgBBAEgAQQBBAGMAQQBCAHkAQQBHADgAQQBjAEEAQgB5AEEARwBrAEEAWQBRAEIAMABBAEcAVQBBAEkAQQBCAEUAQQBHAEUAQQBkAEEAQgBoAEEAQQBvAEEATABRAEEAdABBAEMAMABBAEwAUQBBAHQAQQBDADAAQQBMAFEAQQB0AEEAQwAwAEEATABRAEEAdABBAEMAMABBAEwAUQBBAHQAQQBDADAAQQBJAEEAQQBnAEEAQwBBAEEASQBBAEEAZwBBAEMAQQBBAEkAQQBBAGcAQQBDAEEAQQBJAEEAQQBnAEEAQwBBAEEASQBBAEEAZwBBAEMAMABBAEwAUQBBAHQAQQBDADAAQQBMAFEAQQB0AEEAQwAwAEEATABRAEEAdABBAEMAMABBAEkAQQBBAGcAQQBDAEEAQQBJAEEAQQB0AEEAQwAwAEEATABRAEEAdABBAEMAMABBAEwAUQBBAHQAQQBDADAAQQBMAFEAQQB0AEEAQwAwAEEATABRAEEAdABBAEMAMABBAEwAUQBBAHQAQQBDADAAQQBDAGcAQgBGAEEASABVAEEAWQB3AEIAcwBBAEcAawBBAFoAQQBCAGwAQQBHAEUAQQBiAGcAQQBnAEEARwBRAEEAYQBRAEIAegBBAEgAUQBBAFkAUQBCAHUAQQBHAE0AQQBaAFEAQQBnAEEAQwBBAEEASQBBAEEAZwBBAEMAQQBBAEkAQQBBAGcAQQBDAEEAQQBJAEEAQQBnAEEAQwBBAEEAWQBBAEIAbABBAEgAVQBBAFkAdwBCAHMAQQBHAGsAQQBaAEEAQgBsAEEARwBFAEEAYgBnAEIAZwBBAEMAQQBBAEkAQQBBAGcAQQBDAEEAQQBZAHcAQgB2AEEARwA0AEEAZABBAEIAcABBAEcANABBAGQAUQBCAHYAQQBIAFUAQQBjAHcAQQBnAEEARwBRAEEAWQBRAEIAMABBAEcARQBBAEMAZwBCAEkAQQBHAEUAQQBiAFEAQgB0AEEARwBrAEEAYgBnAEIAbgBBAEMAQQBBAFoAQQBCAHAAQQBIAE0AQQBkAEEAQgBoAEEARwA0AEEAWQB3AEIAbABBAEMAQQBBAEkAQQBBAGcAQQBDAEEAQQBJAEEAQQBnAEEAQwBBAEEASQBBAEEAZwBBAEMAQQBBAEkAQQBBAGcAQQBDAEEAQQBZAEEAQgBvAEEARwBFAEEAYgBRAEIAdABBAEcAawBBAGIAZwBCAG4AQQBHAEEAQQBJAEEAQQBnAEEAQwBBAEEASQBBAEEAZwBBAEMAQQBBAFkAdwBCAGgAQQBIAFEAQQBaAFEAQgBuAEEARwA4AEEAYwBnAEIAcABBAEcATQBBAFkAUQBCAHMAQQBDAEEAQQBaAEEAQgBoAEEASABRAEEAWQBRAEEASwBBAEUAbwBBAFkAUQBCAGoAQQBHAE0AQQBZAFEAQgB5AEEARwBRAEEASQBBAEIAQgBBAEgATQBBAGUAUQBCAHQAQQBHADAAQQBaAFEAQgAwAEEASABJAEEAYQBRAEIAagBBAEMAQQBBAFoAQQBCAHAAQQBIAE0AQQBkAEEAQgBoAEEARwA0AEEAWQB3AEIAbABBAEMAQQBBAEkAQQBCAGcAQQBHAEkAQQBhAFEAQgB1AEEARwBFAEEAYwBnAEIANQBBAEcAQQBBAEkAQQBBAGcAQQBDAEEAQQBJAEEAQQBnAEEAQwBBAEEASQBBAEIAaQBBAEcAawBBAGIAZwBCAGgAQQBIAEkAQQBlAFEAQQBnAEEARwBRAEEAWQBRAEIAMABBAEcARQBBAEMAZwBCAEQAQQBHAEUAQQBZAGcAQgBsAEEASABJAEEAYwBnAEIAaABBAEMAQQBBAFoAQQBCAHAAQQBIAE0AQQBkAEEAQgBoAEEARwA0AEEAWQB3AEIAbABBAEMAQQBBAEkAQQBBAGcAQQBDAEEAQQBJAEEAQQBnAEEAQwBBAEEASQBBAEEAZwBBAEMAQQBBAEkAQQBBAGcAQQBDAEEAQQBZAEEAQgBqAEEARwBFAEEAYgBnAEIAaQBBAEcAVQBBAGMAZwBCAHkAQQBHAEUAQQBZAEEAQQBnAEEAQwBBAEEASQBBAEEAZwBBAEMAQQBBAGIAZwBCAHYAQQBHADQAQQBMAFEAQgB1AEEARwBVAEEAWgB3AEIAaABBAEgAUQBBAGEAUQBCADIAQQBHAFUAQQBJAEEAQgBrAEEARwBFAEEAZABBAEIAaABBAEEAbwBBAFIAdwBCAHYAQQBIAGMAQQBaAFEAQgB5AEEAQwBBAEEAWgBBAEIAcABBAEgATQBBAGQAQQBCAGgAQQBHADQAQQBZAHcAQgBsAEEAQwBBAEEASQBBAEEAZwBBAEMAQQBBAEkAQQBBAGcAQQBDAEEAQQBJAEEAQQBnAEEAQwBBAEEASQBBAEEAZwBBAEMAQQBBAEkAQQBBAGcAQQBHAEEAQQBaAHcAQgB2AEEASABjAEEAWgBRAEIAeQBBAEcAQQBBAEkAQQBBAGcAQQBDAEEAQQBJAEEAQQBnAEEAQwBBAEEASQBBAEEAZwBBAEcAMABBAGEAUQBCADQAQQBHAFUAQQBaAEEAQQBnAEEARwA0AEEAZABRAEIAdABBAEcAVQBBAGMAZwBCAHAAQQBHAE0AQQBZAFEAQgBzAEEAQwBBAEEAWQBRAEIAdQBBAEcAUQBBAEkAQQBCAGoAQQBHAEUAQQBkAEEAQgBsAEEARwBjAEEAYgB3AEIAeQBBAEcAawBBAFkAdwBCAGgAQQBHAHcAQQBJAEEAQgBrAEEARwBFAEEAZABBAEIAaABBAEEAbwBBAFAAQQBBAHYAQQBIAFEAQQBZAFEAQgBpAEEARwB3AEEAWgBRAEEAKwBBAEEAPQA9AAoAcwB1AGYAZgBpAHgAOgA=:31b8e172-b470-440e-83d8-e6b185028602
 
 ## Similarity Method
 
 Next, we must decide which similarity method to use to calculate similarities between data points in the clusters. There are general guidelines for each type, but it is a good idea to try a few different methods in order to determine which one makes your clusters more interpretable.
 
-Below is a table of different similarity metrics and how they each quantify the resemblances between data points in the clusters:
-<table>
-"method= "                   Process
-----------         -----------------
-`single`              Calculates the distance between the two closest points in each cluster
-`complete`            Calculates the distance between the two most distant points in each cluster
-`centroid`            Calculates the distance between the centers of each cluster
-`average`             Calculates the mean distance between each observation in each cluster
-`ward.D`              Minimizes the sum of errors of each cluster.         
-`ward.D2`             Minimizes the squared sum of errors of each cluster.      
-</table>
+Below is a table of different similarity metrics and how they each quantify the resemblances between data points in the clusters: 31b8e172-b470-440e-83d8-e6b185028602:dAB5AHAAZQA6AE8AQQBCAGwAQQBHAFkAQQBOAFEAQgBoAEEARABjAEEATgB3AEEAeQBBAEMAMABBAFoAQQBCAGsAQQBEAFkAQQBNAHcAQQB0AEEARABRAEEATgBnAEEAeQBBAEQASQBBAEwAUQBBADQAQQBEAFEAQQBZAGcAQgBtAEEAQwAwAEEAWQBRAEIAbQBBAEQARQBBAE8AUQBBADUAQQBEAFUAQQBZAFEAQQB4AEEARwBJAEEATQBnAEIAaQBBAEQAawBBAAoAcABvAHMAaQB0AGkAbwBuADoATQBRAEEAMABBAEQATQBBAE4AQQBBADAAQQBBAD0APQAKAHAAcgBlAGYAaQB4ADoACgBzAG8AdQByAGMAZQA6AFAAQQBCADAAQQBHAEUAQQBZAGcAQgBzAEEARwBVAEEAUABnAEEASwBBAEMASQBBAGIAUQBCAGwAQQBIAFEAQQBhAEEAQgB2AEEARwBRAEEAUABRAEEAZwBBAEMASQBBAEkAQQBBAGcAQQBDAEEAQQBJAEEAQQBnAEEAQwBBAEEASQBBAEEAZwBBAEMAQQBBAEkAQQBBAGcAQQBDAEEAQQBJAEEAQQBnAEEAQwBBAEEASQBBAEEAZwBBAEMAQQBBAEkAQQBCAFEAQQBIAEkAQQBiAHcAQgBqAEEARwBVAEEAYwB3AEIAegBBAEEAbwBBAEwAUQBBAHQAQQBDADAAQQBMAFEAQQB0AEEAQwAwAEEATABRAEEAdABBAEMAMABBAEwAUQBBAGcAQQBDAEEAQQBJAEEAQQBnAEEAQwBBAEEASQBBAEEAZwBBAEMAQQBBAEkAQQBBAHQAQQBDADAAQQBMAFEAQQB0AEEAQwAwAEEATABRAEEAdABBAEMAMABBAEwAUQBBAHQAQQBDADAAQQBMAFEAQQB0AEEAQwAwAEEATABRAEEAdABBAEMAMABBAEMAZwBCAGcAQQBIAE0AQQBhAFEAQgB1AEEARwBjAEEAYgBBAEIAbABBAEcAQQBBAEkAQQBBAGcAQQBDAEEAQQBJAEEAQQBnAEEAQwBBAEEASQBBAEEAZwBBAEMAQQBBAEkAQQBBAGcAQQBDAEEAQQBJAEEAQQBnAEEARQBNAEEAWQBRAEIAcwBBAEcATQBBAGQAUQBCAHMAQQBHAEUAQQBkAEEAQgBsAEEASABNAEEASQBBAEIAMABBAEcAZwBBAFoAUQBBAGcAQQBHAFEAQQBhAFEAQgB6AEEASABRAEEAWQBRAEIAdQBBAEcATQBBAFoAUQBBAGcAQQBHAEkAQQBaAFEAQgAwAEEASABjAEEAWgBRAEIAbABBAEcANABBAEkAQQBCADAAQQBHAGcAQQBaAFEAQQBnAEEASABRAEEAZAB3AEIAdgBBAEMAQQBBAFkAdwBCAHMAQQBHADgAQQBjAHcAQgBsAEEASABNAEEAZABBAEEAZwBBAEgAQQBBAGIAdwBCAHAAQQBHADQAQQBkAEEAQgB6AEEAQwBBAEEAYQBRAEIAdQBBAEMAQQBBAFoAUQBCAGgAQQBHAE0AQQBhAEEAQQBnAEEARwBNAEEAYgBBAEIAMQBBAEgATQBBAGQAQQBCAGwAQQBIAEkAQQBDAGcAQgBnAEEARwBNAEEAYgB3AEIAdABBAEgAQQBBAGIAQQBCAGwAQQBIAFEAQQBaAFEAQgBnAEEAQwBBAEEASQBBAEEAZwBBAEMAQQBBAEkAQQBBAGcAQQBDAEEAQQBJAEEAQQBnAEEAQwBBAEEASQBBAEEAZwBBAEUATQBBAFkAUQBCAHMAQQBHAE0AQQBkAFEAQgBzAEEARwBFAEEAZABBAEIAbABBAEgATQBBAEkAQQBCADAAQQBHAGcAQQBaAFEAQQBnAEEARwBRAEEAYQBRAEIAegBBAEgAUQBBAFkAUQBCAHUAQQBHAE0AQQBaAFEAQQBnAEEARwBJAEEAWgBRAEIAMABBAEgAYwBBAFoAUQBCAGwAQQBHADQAQQBJAEEAQgAwAEEARwBnAEEAWgBRAEEAZwBBAEgAUQBBAGQAdwBCAHYAQQBDAEEAQQBiAFEAQgB2AEEASABNAEEAZABBAEEAZwBBAEcAUQBBAGEAUQBCAHoAQQBIAFEAQQBZAFEAQgB1AEEASABRAEEASQBBAEIAdwBBAEcAOABBAGEAUQBCAHUAQQBIAFEAQQBjAHcAQQBnAEEARwBrAEEAYgBnAEEAZwBBAEcAVQBBAFkAUQBCAGoAQQBHAGcAQQBJAEEAQgBqAEEARwB3AEEAZABRAEIAegBBAEgAUQBBAFoAUQBCAHkAQQBBAG8AQQBZAEEAQgBqAEEARwBVAEEAYgBnAEIAMABBAEgASQBBAGIAdwBCAHAAQQBHAFEAQQBZAEEAQQBnAEEAQwBBAEEASQBBAEEAZwBBAEMAQQBBAEkAQQBBAGcAQQBDAEEAQQBJAEEAQQBnAEEAQwBBAEEASQBBAEIARABBAEcARQBBAGIAQQBCAGoAQQBIAFUAQQBiAEEAQgBoAEEASABRAEEAWgBRAEIAegBBAEMAQQBBAGQAQQBCAG8AQQBHAFUAQQBJAEEAQgBrAEEARwBrAEEAYwB3AEIAMABBAEcARQBBAGIAZwBCAGoAQQBHAFUAQQBJAEEAQgBpAEEARwBVAEEAZABBAEIAMwBBAEcAVQBBAFoAUQBCAHUAQQBDAEEAQQBkAEEAQgBvAEEARwBVAEEASQBBAEIAagBBAEcAVQBBAGIAZwBCADAAQQBHAFUAQQBjAGcAQgB6AEEAQwBBAEEAYgB3AEIAbQBBAEMAQQBBAFoAUQBCAGgAQQBHAE0AQQBhAEEAQQBnAEEARwBNAEEAYgBBAEIAMQBBAEgATQBBAGQAQQBCAGwAQQBIAEkAQQBDAGcAQgBnAEEARwBFAEEAZABnAEIAbABBAEgASQBBAFkAUQBCAG4AQQBHAFUAQQBZAEEAQQBnAEEAQwBBAEEASQBBAEEAZwBBAEMAQQBBAEkAQQBBAGcAQQBDAEEAQQBJAEEAQQBnAEEAQwBBAEEASQBBAEEAZwBBAEUATQBBAFkAUQBCAHMAQQBHAE0AQQBkAFEAQgBzAEEARwBFAEEAZABBAEIAbABBAEgATQBBAEkAQQBCADAAQQBHAGcAQQBaAFEAQQBnAEEARwAwAEEAWgBRAEIAaABBAEcANABBAEkAQQBCAGsAQQBHAGsAQQBjAHcAQgAwAEEARwBFAEEAYgBnAEIAagBBAEcAVQBBAEkAQQBCAGkAQQBHAFUAQQBkAEEAQgAzAEEARwBVAEEAWgBRAEIAdQBBAEMAQQBBAFoAUQBCAGgAQQBHAE0AQQBhAEEAQQBnAEEARwA4AEEAWQBnAEIAegBBAEcAVQBBAGMAZwBCADIAQQBHAEUAQQBkAEEAQgBwAEEARwA4AEEAYgBnAEEAZwBBAEcAawBBAGIAZwBBAGcAQQBHAFUAQQBZAFEAQgBqAEEARwBnAEEASQBBAEIAagBBAEcAdwBBAGQAUQBCAHoAQQBIAFEAQQBaAFEAQgB5AEEAQQBvAEEAWQBBAEIAMwBBAEcARQBBAGMAZwBCAGsAQQBDADQAQQBSAEEAQgBnAEEAQwBBAEEASQBBAEEAZwBBAEMAQQBBAEkAQQBBAGcAQQBDAEEAQQBJAEEAQQBnAEEAQwBBAEEASQBBAEEAZwBBAEMAQQBBAEkAQQBCAE4AQQBHAGsAQQBiAGcAQgBwAEEARwAwAEEAYQBRAEIANgBBAEcAVQBBAGMAdwBBAGcAQQBIAFEAQQBhAEEAQgBsAEEAQwBBAEEAYwB3AEIAMQBBAEcAMABBAEkAQQBCAHYAQQBHAFkAQQBJAEEAQgBsAEEASABJAEEAYwBnAEIAdgBBAEgASQBBAGMAdwBBAGcAQQBHADgAQQBaAGcAQQBnAEEARwBVAEEAWQBRAEIAagBBAEcAZwBBAEkAQQBCAGoAQQBHAHcAQQBkAFEAQgB6AEEASABRAEEAWgBRAEIAeQBBAEMANABBAEkAQQBBAGcAQQBDAEEAQQBJAEEAQQBnAEEAQwBBAEEASQBBAEEAZwBBAEMAQQBBAEMAZwBCAGcAQQBIAGMAQQBZAFEAQgB5AEEARwBRAEEATABnAEIARQBBAEQASQBBAFkAQQBBAGcAQQBDAEEAQQBJAEEAQQBnAEEAQwBBAEEASQBBAEEAZwBBAEMAQQBBAEkAQQBBAGcAQQBDAEEAQQBJAEEAQQBnAEEARQAwAEEAYQBRAEIAdQBBAEcAawBBAGIAUQBCAHAAQQBIAG8AQQBaAFEAQgB6AEEAQwBBAEEAZABBAEIAbwBBAEcAVQBBAEkAQQBCAHoAQQBIAEUAQQBkAFEAQgBoAEEASABJAEEAWgBRAEIAawBBAEMAQQBBAGMAdwBCADEAQQBHADAAQQBJAEEAQgB2AEEARwBZAEEASQBBAEIAbABBAEgASQBBAGMAZwBCAHYAQQBIAEkAQQBjAHcAQQBnAEEARwA4AEEAWgBnAEEAZwBBAEcAVQBBAFkAUQBCAGoAQQBHAGcAQQBJAEEAQgBqAEEARwB3AEEAZABRAEIAegBBAEgAUQBBAFoAUQBCAHkAQQBDADQAQQBJAEEAQQBnAEEAQwBBAEEASQBBAEEAZwBBAEMAQQBBAEMAZwBBADgAQQBDADgAQQBkAEEAQgBoAEEARwBJAEEAYgBBAEIAbABBAEQANABBAAoAcwB1AGYAZgBpAHgAOgA=:31b8e172-b470-440e-83d8-e6b185028602
 
 We will be using the `ward.D2` method which uses the squared Euclidean distance between cluster centroids to evaluate the increase in variance when merging the clusters. In other words, this method makes our clusters easier to differentiate by minimizing the sum of squared errors and produces more compact clusters!
 
@@ -288,8 +267,7 @@ Based on the principle components we can loosely infer:
 
 -   *Principle Component 4*: PC4 seems to capture similar spatial information to PC1, except both `Latitude` and `Longitude` have the same high magnitude loadings. These strong associations suggest that PC4 represents a specific spatial variation or trend in the dataset.
 
-
-Now we can plot the first two principle components and see how they capture information about the Median Income of houses. 
+Now we can plot the first two principle components and see how they capture information about the Median Income of houses.
 
 ```{r fig.height= 7, fig.width = 7}
  # Create a combined data frame with PC scores and normalized data
@@ -304,7 +282,6 @@ ggplot(combined_data, aes(x = PC1, y = PC2, color = MedInc)) +
 
 As we can see from the plot above, there is no definitive pattern between the coordinates of a house and the median income of the area it is in. There is an almost symmetrical collection of points around 0 on the x-axis which is where PC1 is plotted. Since PC2 contains information on Median Income, the color gradient confirms the preciseness of our principle component, and helps to reinforce the idea that it is difficult to hierarchical cluster the housing data based on median income because there are high median income and low median income areas in Northern and Southern California.
 
-
 ## CLUSPLOT Visualization
 
 An alternate visualization method for hierarchical clustering is using the `clusplot()` function. This graph allows you to plot the similarities in two-dimensional space, but we can see from the plot below that a three dimensional space would be more suitable for our data.
@@ -314,7 +291,6 @@ groups <- cutree(fit, k=5)    # cut dendrogram
 # Plot the clusters
 clusplot(housing_norm, groups, color=TRUE, shade=TRUE, labels=0, lines=0)
 ```
-
 
 ```{r fig.height= 7, fig.width = 7}
 # Create a 3D scatter plot using the first three columns of housing_norm
@@ -332,9 +308,9 @@ This 3-dimensional plot helps better distinguish our clusters! Because it is har
 
 ## Test Cluster Accuracy with Bootstrapping
 
-In order to determine if the grouping we found is a valid representation of "true" clusters, we randomly resample (with replacement) from our data set and rerun our clustering algorithm. We will be analyzing the bootstrap resamples using the Jaccard Index, or the Similarity Coefficient. 
+In order to determine if the grouping we found is a valid representation of "true" clusters, we randomly resample (with replacement) from our data set and rerun our clustering algorithm. We will be analyzing the bootstrap resamples using the Jaccard Index, or the Similarity Coefficient.
 
-The Jaccard Index is defined as the size of the intersection divided by the size of the union of the sample sets. 
+The Jaccard Index is defined as the size of the intersection divided by the size of the union of the sample sets.
 
 $$
 J(A, B) = \frac{|A \cap B|}{|A \cup B|}
@@ -364,10 +340,9 @@ Eval <- cbind(Clusters, AvgJaccard, Instability)
 Eval
 ```
 
-Therefore, we can see that only our fifth cluster is moderately stable with an average Jaccard Index of ~0.74. So we can conclude that the hierarchical clustering method did not work very well with our data set. This could be due to many reasons like our clusters have complex structures, the subjectivity of cutting our dendrogram, and our data having high dimensionality. 
+Therefore, we can see that only our fifth cluster is moderately stable with an average Jaccard Index of \~0.74. So we can conclude that the hierarchical clustering method did not work very well with our data set. This could be due to many reasons like our clusters have complex structures, the subjectivity of cutting our dendrogram, and our data having high dimensionality.
 
 However, hierarchical clustering is still an effective method to explore when using clustering techniques. Unlike k-means clustering, hierarchical clustering does not require the user to specify the number of clusters in advance and the dendrogram structure allows users to explore different levels of granularity and choose the number of clusters based on the data's natural grouping. Hierarchical Clustering is also capable of capturing nested or overlapping clusters which is useful when data has subgroups.
-
 
 # Conclusion
 
